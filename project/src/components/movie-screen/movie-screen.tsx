@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
 function MovieScreen(){
   return (
     <body>
@@ -26,7 +26,7 @@ function MovieScreen(){
                 </div>
               </li>
               <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
+                <a href="/somepage" className="user-block__link">Sign out</a>
               </li>
             </ul>
           </header>
@@ -68,13 +68,13 @@ function MovieScreen(){
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
+                    <a href="/somepage" className="film-nav__link">Overview</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
+                    <a href="/somepage"className="film-nav__link">Details</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
+                    <a href="/somepage" className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
               </nav>

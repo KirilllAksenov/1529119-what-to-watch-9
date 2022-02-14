@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+
 function AddReviewScreen() {
   return (
     <body>
@@ -25,7 +25,7 @@ function AddReviewScreen() {
                   <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
                 </li>
                 <li className="breadcrumbs__item">
-                  <a className="breadcrumbs__link">Add review</a>
+                  <button className="breadcrumbs__link">Add review</button>
                 </li>
               </ul>
             </nav>
@@ -37,7 +37,7 @@ function AddReviewScreen() {
                 </div>
               </li>
               <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
+                <a href="/somepage" className="user-block__link">Sign out</a>
               </li>
             </ul>
           </header>
