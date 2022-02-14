@@ -3,17 +3,17 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
 const DataMainPage = {
-  filmTitle: 'The Grand Budapest Hotel',
-  filmGenre: 'Drama',
-  releaseDate: 2014,
+  name: 'The Grand Budapest Hotel',
+  genre: 'Drama',
+  released: 2014,
 };
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      filmTitle = {DataMainPage.filmTitle}
-      filmGenre = {DataMainPage.filmGenre}
-      releaseDate = {DataMainPage.releaseDate}
+      name = {DataMainPage.name}
+      genre = {DataMainPage.genre}
+      released = {DataMainPage.released}
     />
   </React.StrictMode>,
   document.getElementById('root'));

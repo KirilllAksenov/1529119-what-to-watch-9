@@ -1,10 +1,10 @@
-type FilmCardProps = {
+type FilmPosterProps = {
   filmTitle: string,
   filmGenre: string,
   releaseDate: number,
 }
 
-function BigFilmCard({filmTitle, filmGenre, releaseDate}: FilmCardProps): JSX.Element {
+function FilmPoster({filmTitle, filmGenre, releaseDate}: FilmPosterProps): JSX.Element {
   return (
     <div className="film-card__info">
       <div className="film-card__poster">
@@ -37,6 +37,6 @@ function BigFilmCard({filmTitle, filmGenre, releaseDate}: FilmCardProps): JSX.El
   );
 }
 
-export default BigFilmCard;
+export default FilmPoster;
 
 

@@ -1,13 +1,13 @@
-import BigFilmCard from '../film-card/big-film-card';
-import SmallFilmCard from '../film-card/small-film-card';
+import FilmPoster from '../film-poster/film-poster';
+import FilmCard from '../film-card/film-card';
 /* eslint-disable jsx-a11y/anchor-is-valid */
-type AppMainPageProps = {
-  filmTitle: string,
-  filmGenre: string,
-  releaseDate: number,
+type MainScreenProps = {
+  name: string,
+  genre: string,
+  released: number,
 }
 
-function MainPage({filmTitle, filmGenre, releaseDate}: AppMainPageProps): JSX.Element {
+function MainScreen({name: filmTitle, genre: filmGenre, released: releaseDate}: MainScreenProps): JSX.Element {
   return (
     <body>
       <div className="visually-hidden">
@@ -71,7 +71,7 @@ function MainPage({filmTitle, filmGenre, releaseDate}: AppMainPageProps): JSX.El
         </header>
 
         <div className="film-card__wrap">
-          <BigFilmCard filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate}/>
+          <FilmPoster filmTitle={filmTitle} filmGenre={filmGenre} releaseDate={releaseDate}/>
         </div>
       </section>
 
@@ -115,14 +115,14 @@ function MainPage({filmTitle, filmGenre, releaseDate}: AppMainPageProps): JSX.El
           <div className="catalog__films-list">
             {
               [
-                <><SmallFilmCard/>
-                  <SmallFilmCard/>
-                  <SmallFilmCard/>
-                  <SmallFilmCard/>
-                  <SmallFilmCard/>
-                  <SmallFilmCard/>
-                  <SmallFilmCard/>
-                  <SmallFilmCard/>
+                <><FilmCard/>
+                  <FilmCard/>
+                  <FilmCard/>
+                  <FilmCard/>
+                  <FilmCard/>
+                  <FilmCard/>
+                  <FilmCard/>
+                  <FilmCard/>
                 </>,
               ].map((card) => card)
             }
@@ -152,4 +152,4 @@ function MainPage({filmTitle, filmGenre, releaseDate}: AppMainPageProps): JSX.El
   );
 }
 
-export default MainPage;
+export default MainScreen;
