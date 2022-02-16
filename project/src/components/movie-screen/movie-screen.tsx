@@ -1,7 +1,7 @@
 
 function MovieScreen(){
   return (
-    <body>
+    <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -144,7 +144,7 @@ function MovieScreen(){
           </div>
         </section>
       </div>
-    </body>
+    </>
   );
 }
 export default MovieScreen;
