@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-const MainPageData = {
+const mainPageData = {
   name: 'The Grand Budapest Hotel',
   genre: 'Drama',
   released: 2014,
@@ -11,9 +11,9 @@ const MainPageData = {
 ReactDOM.render(
   <React.StrictMode>
     <App
-      name = {MainPageData.name}
-      genre = {MainPageData.genre}
-      released = {MainPageData.released}
+      name = {mainPageData.name}
+      genre = {mainPageData.genre}
+      released = {mainPageData.released}
     />
   </React.StrictMode>,
   document.getElementById('root'));

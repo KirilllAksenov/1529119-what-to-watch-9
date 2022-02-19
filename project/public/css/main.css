@@ -1409,3 +1409,17 @@ main {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
+
+.not-found {
+  font-family: "Arial", "Helvetica", sans-serif;
+  font-size: 19px;
+  line-height: 23px;
+  color: #000000;
+  background-color: #ffffff;
+  margin: 0;
+  min-width: 1000px;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}

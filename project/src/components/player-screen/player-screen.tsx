@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
 
-function PlayerScreen() {
+function PlayerScreen(): JSX.Element{
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
-      <button type="button" className="player__exit">Exit</button>
+      <Link to="/">
+        <button type="button" className="player__exit">Exit</button>
+      </Link>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
@@ -31,4 +34,5 @@ function PlayerScreen() {
     </div>
   );
 }
+
 export default PlayerScreen;
