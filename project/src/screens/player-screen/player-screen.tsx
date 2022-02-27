@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
+import { Film } from '../../types/film';
 
-function PlayerScreen(): JSX.Element{
+type PlayerScreenProps = {
+  films: Film[];
+}
+function PlayerScreen({films}: PlayerScreenProps): JSX.Element{
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={films[0].previewVideoLink} className="player__video" poster={films[0].backgroundImage}></video>
       <Link to="/">
         <button type="button" className="player__exit">Exit</button>
       </Link>

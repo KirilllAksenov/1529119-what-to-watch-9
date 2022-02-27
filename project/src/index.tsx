@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import { films } from './mocks/films';
+import {filmReviews} from './mocks/review';
 
-const mainPageData = {
-  name: 'The Grand Budapest Hotel',
+const promoFilmParams = {
   genre: 'Drama',
-  released: 2014,
+  releaseDate: 2014,
+  title: 'The Grand Budapest Hotel',
 };
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      name = {mainPageData.name}
-      genre = {mainPageData.genre}
-      released = {mainPageData.released}
+      films={films}
+      promo={promoFilmParams}
+      review={filmReviews}
     />
   </React.StrictMode>,
   document.getElementById('root'));
