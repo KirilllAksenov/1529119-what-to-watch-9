@@ -1,10 +1,15 @@
 import {Fragment} from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../footer/footer';
-import Login from '../login/login';
-import Logo from '../logo/logo';
+import Footer from '../../components/footer/footer';
+import Login from '../../components/login/login';
+import Logo from '../../components/logo/logo';
+import { Film } from '../../types/film';
 
-function MovieScreen(): JSX.Element{
+type MovieScreenProps = {
+  films: Film[];
+}
+
+function MovieScreen({films}: MovieScreenProps): JSX.Element{
   return (
     <Fragment>
       <section className="film-card film-card--full">
