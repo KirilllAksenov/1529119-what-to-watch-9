@@ -16,16 +16,21 @@ export type Film = {
     genre: string,
     released: number,
     isFavorite: boolean,
-    };
-
-export type FilmReview = {
-      comment: string
-      date: string
-      id: number
-      rating: number
-      user: {
-          id: number
-          name: string
-      }
 };
 
+export type Review = {
+    comment: string
+    date: string
+    id: number
+    rating: number
+    user: {
+      id: number
+      name: string
+    }
+};
+
+export type Promo = {
+    title: string,
+    genre: string,
+    releaseDate: number
+};

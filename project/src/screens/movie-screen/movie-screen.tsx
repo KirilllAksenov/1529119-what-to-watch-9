@@ -1,17 +1,16 @@
-import {Fragment} from 'react';
 import { Link } from 'react-router-dom';
+import { Film } from '../../types/film';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/film';
 
-type MovieScreenProps = {
+type Props = {
   films: Film[];
 }
 
-function MovieScreen({films}: MovieScreenProps): JSX.Element{
+function MovieScreen({films}: Props): JSX.Element{
   return (
-    <Fragment>
+    <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
@@ -151,7 +150,7 @@ function MovieScreen({films}: MovieScreenProps): JSX.Element{
         </section>
         <Footer/>
       </div>
-    </Fragment>
+    </>
   );
 }
 

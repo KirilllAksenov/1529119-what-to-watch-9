@@ -1,14 +1,13 @@
 import FormReview from '../../components/form-review/form-review';
 import Logo from '../../components/logo/logo';
-import { Film, FilmReview } from '../../types/film';
+import { Film, Review } from '../../types/film';
 
-type AddReviewScreenProps = {
+type Props = {
   films: Film[];
-  review: FilmReview[],
-
+  review: Review[],
 }
 
-function AddReviewScreen({films, review}: AddReviewScreenProps) {
+function AddReviewScreen({films, review}: Props) {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
