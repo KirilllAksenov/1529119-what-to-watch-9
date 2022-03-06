@@ -4,10 +4,10 @@ import Login from '../../components/login/login';
 import Logo from '../../components/logo/logo';
 import { Film } from '../../types/film';
 
-type MyListScreenProps = {
+type Props = {
   films: Film[];
 }
-function MyListScreen ({films}: MyListScreenProps): JSX.Element{
+function MyListScreen ({films}: Props): JSX.Element{
   return(
     <div className="user-page">
       <header className="page-header user-page__head">

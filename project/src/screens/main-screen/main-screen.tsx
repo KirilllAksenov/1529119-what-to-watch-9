@@ -1,5 +1,4 @@
-import {Fragment} from 'react';
-import { Film } from '../../types/film';
+import { Film, Promo } from '../../types/film';
 import FilmPoster from '../../components/film-poster/film-poster';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -9,18 +8,14 @@ import FilmsList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ButtonShowMore from '../../components/button-show-more/button-show-more';
 
-type MainScreenProps = {
+type Props = {
   films: Film[];
-  promo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  }
+  promo: Promo;
 }
 
-function MainScreen({films, promo}: MainScreenProps): JSX.Element {
+function MainScreen({films, promo}: Props): JSX.Element {
   return (
-    <Fragment>
+    <>
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -54,7 +49,7 @@ function MainScreen({films, promo}: MainScreenProps): JSX.Element {
         </section>
         <Footer/>
       </div>
-    </Fragment>
+    </>
   );
 }
 

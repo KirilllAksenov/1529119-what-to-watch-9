@@ -8,19 +8,15 @@ import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import { Film, FilmReview} from '../../types/film';
+import { Film, Review, Promo} from '../../types/film';
 
-type AppScreenProps = {
+type Props = {
   films: Film[],
-  review: FilmReview[],
-  promo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  },
+  review: Review[],
+  promo: Promo;
 }
 
-function App({ promo, films, review}: AppScreenProps): JSX.Element {
+function App({ promo, films, review}: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -39,7 +35,7 @@ function App({ promo, films, review}: AppScreenProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>}/>
+        <Route path={AppRoute.Player} element={<PlayerScreen films={[]} />}/>
         <Route
           path="*"
           element={<NotFoundScreen />}

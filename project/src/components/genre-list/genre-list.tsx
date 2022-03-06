@@ -1,11 +1,10 @@
 import {Film} from '../../types/film';
 
-
-type GenreListProps = {
+type Props = {
   films: Film[];
 }
 
-function GenreList({films}: GenreListProps): JSX.Element {
+function GenreList({films}: Props): JSX.Element {
   return (
     <ul className="catalog__genres-list">
       <li className="catalog__genres-item catalog__genres-item--active">

@@ -1,14 +1,11 @@
+import { Promo } from '../../types/film';
 import Controls from '../controls/controls';
 
-type FilmPosterProps = {
-  promo: {
-    title: string,
-    genre: string,
-    releaseDate: number
-  },
+type Props = {
+  promo: Promo,
 }
 
-function FilmPoster({promo}: FilmPosterProps): JSX.Element {
+function FilmPoster({promo}: Props): JSX.Element {
   return (
     <div className="film-card__info">
       <div className="film-card__poster">
