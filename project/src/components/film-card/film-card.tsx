@@ -3,43 +3,42 @@ import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 
-const DEFAULT_MUTE = true;
-
 type FilmCardProps = {
   film: Film,
   isActive: boolean,
   onHover: (id: number | null) => void,
 }
 
+let timer: NodeJS.Timeout | null = null;
+
 function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
   const [isPlay, setIsPlay] = useState(false);
 
-  let currentPlay = true;
-
-  const toggleIsPlay = (data: number | null) => {
-    setIsPlay(currentPlay);
-    onHover(data);
+  const handleMouseEnter = () => {
+    timer = setTimeout(() => {
+      onHover(film.id);
+      setIsPlay(true);
+    }, 1000);
   };
 
-  const onMouseEnterHandler = (data: number | null) => {
-    toggleIsPlay(data);
-    currentPlay = true;
-  };
-
-  const onMouseLeaveHandler = (data: number | null) => {
-    currentPlay = false;
-    toggleIsPlay(data);
+  const handleMouseLeave = () => {
+    if(timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    setIsPlay(false);
+    onHover(null);
   };
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => setTimeout(() => onMouseEnterHandler(film.id), 1000)}
-      onMouseLeave={() => onMouseLeaveHandler(null)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="small-film-card__image">
         {isPlay
-          ? <VideoPlayer src={film.previewVideoLink} poster={film.previewImage} isPlay={isPlay} isMute={DEFAULT_MUTE}/>
+          ? <VideoPlayer src={film.previewVideoLink} poster={film.previewImage} isPlay={isPlay} isMute/>
           : <img src={film.previewImage} alt={film.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
