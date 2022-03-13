@@ -1,6 +1,6 @@
 import { Tab } from '../../const';
 import { TabName } from '../../types/tab';
-import NavItem from './navigation-item';
+import TabItem from './tab-item';
 
 type Props = {
   activeItem: TabName;
@@ -9,7 +9,7 @@ type Props = {
 
 function NavigationList({activeItem, setActiveItem}: Props):JSX.Element {
   const tabs = Object.values(Tab);
-  const navList = tabs.map((tab) => <NavItem key={tab} name={tab} activeItem={activeItem} setActiveItem={setActiveItem}/>);
+  const navList = tabs.map((tab) => <TabItem key={tab} name={tab} activeItem={activeItem} setActiveItem={setActiveItem}/>);
 
   return(
     <nav className="film-nav film-card__nav">

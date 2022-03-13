@@ -17,7 +17,7 @@ function MovieScreen({films, comments}: Props): JSX.Element{
 
   const paramsId = Number(params.id);
 
-  const film: Film = films.filter((currentFilm) => currentFilm.id === +paramsId)[0];
+  const film: Film = films.filter((currentFilm) => currentFilm.id === paramsId)[0];
   const commentsCurrentFilm: Comment[] = comments.filter((currentComments) => currentComments.id === +paramsId);
 
   const {name, id, posterImage, genre, released, backgroundImage} = film;

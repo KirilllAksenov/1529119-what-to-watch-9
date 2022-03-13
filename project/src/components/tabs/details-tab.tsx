@@ -1,32 +1,18 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
-import { Fragment } from 'react';
 import {Film} from '../../types/film';
+import DetailsItem from '../tabs/detailts-item';
 
 dayjs.extend(duration);
 
 type Props = {
-  name: string;
-  value: string | JSX.Element[] | number;
-}
-
-type DetailsTabProps = {
   film: Film;
 }
 
-function DetailsItem({name, value}: Props):JSX.Element {
-  return(
-    <p className="film-card__details-item">
-      <strong className="film-card__details-name">{name}</strong>
-      <span className="film-card__details-value">{value}</span>
-    </p>
-  );
-}
-
-function DetailsTab({film}: DetailsTabProps):JSX.Element {
+function DetailsTab({film}: Props):JSX.Element {
   const {director, starring, runTime, genre, released} = film;
 
-  const starringList = starring.map((item) => <Fragment key={item}>{item}<br/></Fragment>);
+  const starringList = starring.join('');
 
   return(
     <div className="film-card__text film-card__row">
