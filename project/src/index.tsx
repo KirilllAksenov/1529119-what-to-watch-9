@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { films } from './mocks/films';
 import {comments} from './mocks/comments';
+import { store } from './store';
 
 const promoFilmParams = {
   genre: 'Drama',
@@ -12,10 +14,12 @@ const promoFilmParams = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      films={films}
-      promo={promoFilmParams}
-      comments={comments}
-    />
+    <Provider store={store}>
+      <App
+        films={films}
+        promo={promoFilmParams}
+        comments={comments}
+      />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
