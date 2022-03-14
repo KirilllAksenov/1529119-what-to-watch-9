@@ -8,15 +8,16 @@ import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import { Film, Review, Promo} from '../../types/film';
+import { Film,  Promo} from '../../types/film';
+import { Comment } from '../../types/comment';
 
 type Props = {
   films: Film[],
-  review: Review[],
+  comments: Comment[];
   promo: Promo;
 }
 
-function App({ promo, films, review}: Props): JSX.Element {
+function App({ promo, films, comments}: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,10 +29,10 @@ function App({ promo, films, review}: Props): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Film} element={<MovieScreen films={films}/>}/>
+        <Route path={AppRoute.Film} element={<MovieScreen films={films} comments={comments}/>}/>
         <Route path={AppRoute.AddReview} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-            <AddReviewScreen films={films} review={review}/>
+            <AddReviewScreen films={films} comments={comments}/>
           </PrivateRoute>
         }
         />

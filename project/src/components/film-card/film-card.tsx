@@ -42,7 +42,7 @@ function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
           : <img src={film.previewImage} alt={film.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/film/:${film.id}`}className="small-film-card__link">{film.name}</Link>
+        <Link to={`/film/${film.id}`}className="small-film-card__link">{film.name}</Link>
       </h3>
     </article>
   );

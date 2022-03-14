@@ -1,6 +1,6 @@
-import {Review} from '../types/film';
+import {Comment} from '../types/comment';
 
-export const filmReviews: Review[] = [
+export const comments: Comment[] = [
   {
     'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
     'date': 'Tue Feb 22 2022 18:44:41 GMT+0300 (Москва, стандартное время)',

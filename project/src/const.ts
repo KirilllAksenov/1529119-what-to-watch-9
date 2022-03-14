@@ -12,3 +12,22 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTHORIZATION',
   Unknown = 'UNKNOWN',
 }
+
+export const genres = [
+  'All genres',
+  'Comedies',
+  'Crime',
+  'Documentary',
+  'Dramas',
+  'Horror',
+  'Kids & Family',
+  'Romance',
+  'Sci-Fi',
+  'Thrillers',
+];
+
+export enum Tab {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
