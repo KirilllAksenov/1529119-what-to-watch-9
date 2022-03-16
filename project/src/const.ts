@@ -13,20 +13,12 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const Genres = [
-  'All genres',
-  'Comedies',
-  'Crime',
-  'Documentary',
-  'Dramas',
-  'Horror',
-  'Kids & Family',
-  'Romance',
-  'Sci-Fi',
-  'Thrillers',
-];
-
 export const DEFAULT_ACTIVE_GENRE = 'All genres';
+export const MAX_GENRES = 9;
+
+export enum Action {
+  setActiveGenre = 'set active genre',
+}
 
 export enum Tab {
   Overview = 'Overview',

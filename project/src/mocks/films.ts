@@ -1,3 +1,4 @@
+import { DEFAULT_ACTIVE_GENRE, MAX_GENRES } from '../const';
 import { Film } from '../types/film';
 
 export const films: Film[] = [
@@ -18,7 +19,7 @@ export const films: Film[] = [
       'Bill Murray',
     ],
     'runTime': 99,
-    'genre': 'Comedy',
+    'genre': 'Comedies',
     'released': 2014,
     'isFavorite': false,
   },
@@ -186,33 +187,10 @@ export const films: Film[] = [
       'Bill Murray',
     ],
     'runTime': 99,
-    'genre': 'Thrillers',
-    'released': 2014,
-    'isFavorite': false,
-  },
-  {
-    'id': 10,
-    'name': 'Johnny English',
-    'posterImage': 'img/what-we-do-in-the-shadows.jpg',
-    'previewImage': 'img/johnny-english.jpg',
-    'backgroundImage': 'img/the-grand-budapest-hotel-bg.jpg',
-    'backgroundColor': '#ffffff',
-    'videoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
-    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
-    'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-    'rating': 8.9,
-    'scoresCount': 240,
-    'director': 'Wes Anderson',
-    'starring': [
-      'Bill Murray',
-    ],
-    'runTime': 99,
-    'genre': 'Thrillers',
+    'genre': 'Trillers',
     'released': 2014,
     'isFavorite': false,
   },
 ];
 
-export const genres = [...new Set(films.map((film) => film.genre))];
-// eslint-disable-next-line no-console
-console.log('genres', genres);
+export const dataGenres = [DEFAULT_ACTIVE_GENRE, ...new Set(films.map((film) => film.genre))].slice(0, MAX_GENRES);

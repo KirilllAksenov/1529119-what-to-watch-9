@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Film } from '../types/film';
+import { Action } from '../const';
 
-export const setActiveGenre = createAction<string>('main/setActiveGenre');
-export const getFilmsByGenre = createAction<Film[]>('genre/getFilmsByGenre');
+export const setActiveGenre = createAction(Action.setActiveGenre, (genre) => ({
+  payload: genre,
+}));
