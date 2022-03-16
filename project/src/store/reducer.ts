@@ -1,14 +1,26 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { updateSelectedGenre } from './action';
+import { DEFAULT_ACTIVE_GENRE } from '../const';
+import { Film } from '../types/film';
+import { getFilmsByGenre, setActiveGenre } from './action';
 
-const initialState = {
-  selectedGenre: 'All genres',
+
+type Props = {
+  activeGenre: string,
+  films: Film[],
+};
+
+const initialState: Props = {
+  activeGenre: DEFAULT_ACTIVE_GENRE,
+  films: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(updateSelectedGenre, (state, action) => {
-      state.selectedGenre = action.payload;
+    .addCase(setActiveGenre, (state, action) => {
+      state.activeGenre = action.payload;
+    })
+    .addCase(getFilmsByGenre, (state, action) => {
+      state.films = action.payload;
     });
 });
 
