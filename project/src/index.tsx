@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { films } from './mocks/films';
 import {comments} from './mocks/comments';
+import {genres} from './mocks/films';
 import { store } from './store';
 
 const promoFilmParams = {
@@ -19,6 +20,7 @@ ReactDOM.render(
         films={films}
         promo={promoFilmParams}
         comments={comments}
+        genres={genres}
       />
     </Provider>
   </React.StrictMode>,

@@ -4,12 +4,12 @@ import { Film } from '../types/film';
 import { getFilmsByGenre, setActiveGenre } from './action';
 
 
-type Props = {
+type State = {
   activeGenre: string,
   films: Film[],
 };
 
-const initialState: Props = {
+const initialState: State = {
   activeGenre: DEFAULT_ACTIVE_GENRE,
   films: [],
 };

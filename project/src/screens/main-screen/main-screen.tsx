@@ -10,10 +10,11 @@ import ButtonShowMore from '../../components/button-show-more/button-show-more';
 
 type Props = {
   films: Film[];
+  genres: string[];
   promo: Promo;
 }
 
-function MainScreen({films, promo}: Props): JSX.Element {
+function MainScreen({films, genres, promo}: Props): JSX.Element {
   const { name, backgroundImage } = films[0];
   return (
     <>
@@ -44,7 +45,7 @@ function MainScreen({films, promo}: Props): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList films={films}/>
+          <GenreList genres={genres}/>
           <FilmsList films={films}/>
           <ButtonShowMore/>
         </section>

@@ -13,15 +13,16 @@ import { Comment } from '../../types/comment';
 
 type Props = {
   films: Film[],
+  genres: string[];
   comments: Comment[];
   promo: Promo;
 }
 
-function App({ promo, films, comments}: Props): JSX.Element {
+function App({ promo, films, comments, genres}: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen promo={promo} films={films}/>}/>
+        <Route path={AppRoute.Main} element={<MainScreen promo={promo} films={films} genres={genres}/>}/>
         <Route path={AppRoute.SingIn} element={<SingInScreen/>}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
