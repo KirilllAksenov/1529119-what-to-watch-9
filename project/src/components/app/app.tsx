@@ -8,20 +8,20 @@ import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import { Film,  Promo} from '../../types/film';
+import { Film} from '../../types/film';
 import { Comment } from '../../types/comment';
 
 type Props = {
   films: Film[],
+  genres: string[];
   comments: Comment[];
-  promo: Promo;
 }
 
-function App({ promo, films, comments}: Props): JSX.Element {
+function App({ films, comments, genres}: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen promo={promo} films={films}/>}/>
+        <Route path={AppRoute.Main} element={<MainScreen/>}/>
         <Route path={AppRoute.SingIn} element={<SingInScreen/>}/>
         <Route path={AppRoute.MyList} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>

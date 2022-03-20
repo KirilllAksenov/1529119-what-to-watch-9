@@ -1,22 +1,23 @@
-import { Promo } from '../../types/film';
+import { Film } from '../../types/film';
 import Controls from '../controls/controls';
 
 type Props = {
-  promo: Promo,
+  films: Film[],
 }
 
-function FilmPoster({promo}: Props): JSX.Element {
+function FilmPoster({films}: Props): JSX.Element {
+  const {name, genre, released, posterImage} = films[0];
   return (
     <div className="film-card__info">
       <div className="film-card__poster">
-        <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+        <img src={posterImage} alt={name} width="218" height="327" />
       </div>
 
       <div className="film-card__desc">
-        <h2 className="film-card__title">{promo.title}</h2>
+        <h2 className="film-card__title">{name}</h2>
         <p className="film-card__meta">
-          <span className="film-card__genre">{promo.genre}</span>
-          <span className="film-card__year">{promo.releaseDate}</span>
+          <span className="film-card__genre">{genre}</span>
+          <span className="film-card__year">{released}</span>
         </p>
         <Controls/>
       </div>

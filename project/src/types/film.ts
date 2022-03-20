@@ -17,9 +17,3 @@ export type Film = {
     released: number,
     isFavorite: boolean,
 };
-
-export type Promo = {
-    title: string,
-    genre: string,
-    releaseDate: number
-};

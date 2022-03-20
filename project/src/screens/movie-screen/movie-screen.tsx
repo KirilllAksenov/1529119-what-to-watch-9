@@ -18,7 +18,7 @@ function MovieScreen({films, comments}: Props): JSX.Element{
   const paramsId = Number(params.id);
 
   const film: Film = films.filter((currentFilm) => currentFilm.id === paramsId)[0];
-  const commentsCurrentFilm: Comment[] = comments.filter((currentComments) => currentComments.id === +paramsId);
+  const commentsCurrentFilm: Comment[] = comments.filter((currentComments) => currentComments.id === paramsId);
 
   const {name, id, posterImage, genre, released, backgroundImage} = film;
 
@@ -34,15 +34,7 @@ function MovieScreen({films, comments}: Props): JSX.Element{
 
           <header className="page-header film-card__head">
             <Logo/>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <Login/>
-            </ul>
+            <Login/>
           </header>
 
           <div className="film-card__wrap">
