@@ -10,7 +10,7 @@ function GenreList({genres}: Props): JSX.Element {
   const activeGenre = useAppSelector((state) => state.activeGenre);
   const dispatch = useAppDispatch();
   return (
-    <>
+    <ul className="catalog__genres-list">
       {genres.map((genre) => (
         <li
           key = {genre}
@@ -22,7 +22,7 @@ function GenreList({genres}: Props): JSX.Element {
           <Link to={''} className="catalog__genres-link">{genre}</Link>
         </li>
       ))}
-    </>
+    </ul>
   );
 }
 

@@ -4,20 +4,19 @@ import Logo from '../../components/logo/logo';
 import Login from '../../components/login/login';
 import FilmsList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
-import ButtonShowMore from '../../components/button-show-more/button-show-more';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks';
-import { useEffect, useState } from 'react';
-import { DEFAULT_ACTIVE_GENRE } from '../../const';
 
 function MainScreen(): JSX.Element {
-  const [genres, setGenres] = useState<string[]>([]);
-  const activeGenre = useAppSelector((state) => state.activeGenre);
-  const films = useAppSelector((state) => state.films);
-  const filmsList = (activeGenre === 'All genres') ? films : films.filter(({genre}) => activeGenre === genre);
+  const genres = useAppSelector((state) => state.genres);
+
+  const filmsCount = useAppSelector((state) => state.films.length);
+
+  const showedFilmsCount = useAppSelector((state) => state.showedFilmsCount);
+
+  const films = useAppSelector((state) => state.films).slice(0, showedFilmsCount);
+
   const {name, backgroundImage } = films[0];
-  useEffect(() => {
-    setGenres([DEFAULT_ACTIVE_GENRE, ...new Set(films.map((film) => film.genre))]);
-  }, [films]);
 
   return (
     <>
@@ -41,11 +40,9 @@ function MainScreen(): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <ul className="catalog__genres-list">
-            <GenreList genres={genres}/>
-          </ul>
-          <FilmsList films={filmsList}/>
-          <ButtonShowMore/>
+          <GenreList genres={genres}/>
+          <FilmsList films={films}/>
+          <ShowMoreButton showedFilmsCount={showedFilmsCount} filmsCount={filmsCount}/>
         </section>
         <Footer/>
       </div>

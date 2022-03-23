@@ -117,7 +117,7 @@ export const films: Film[] = [
     'videoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-    'rating': 8.9,
+    'rating': 2.9,
     'scoresCount': 240,
     'director': 'Wes Anderson',
     'starring': [
@@ -139,7 +139,7 @@ export const films: Film[] = [
     'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
     'rating': 8.9,
-    'scoresCount': 240,
+    'scoresCount': 220,
     'director': 'Wes Anderson',
     'starring': [
       'Bill Murray',
@@ -159,8 +159,8 @@ export const films: Film[] = [
     'videoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-    'rating': 8.9,
-    'scoresCount': 240,
+    'rating': 6.9,
+    'scoresCount': 140,
     'director': 'Wes Anderson',
     'starring': [
       'Bill Murray',
@@ -180,7 +180,28 @@ export const films: Film[] = [
     'videoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
     'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-    'rating': 8.9,
+    'rating': 5.9,
+    'scoresCount': 240,
+    'director': 'Wes Anderson',
+    'starring': [
+      'Bill Murray',
+    ],
+    'runTime': 99,
+    'genre': 'Trillers',
+    'released': 2014,
+    'isFavorite': false,
+  },
+  {
+    'id': 10,
+    'name': 'What We Do in the Shadows',
+    'posterImage': 'img/what-we-do-in-the-shadows.jpg',
+    'previewImage': 'img/johnny-english.jpg',
+    'backgroundImage': 'img/the-grand-budapest-hotel-bg.jpg',
+    'backgroundColor': '#ffffff',
+    'videoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
+    'previewVideoLink': 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
+    'description': 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
+    'rating': 4.8,
     'scoresCount': 240,
     'director': 'Wes Anderson',
     'starring': [
@@ -193,4 +214,4 @@ export const films: Film[] = [
   },
 ];
 
-export const dataGenres = [DEFAULT_ACTIVE_GENRE, ...new Set(films.map((film) => film.genre))].slice(0, MAX_GENRES);
+export const genres = [DEFAULT_ACTIVE_GENRE, ...new Set(films.map((film) => film.genre))].slice(0, MAX_GENRES);
