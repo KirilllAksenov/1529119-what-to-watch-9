@@ -1,3 +1,7 @@
+export const DEFAULT_ACTIVE_GENRE = 'All genres';
+export const MAX_GENRES = 9;
+export const INITIAL_SHOW_FILM_COUNT = 8;
+
 export enum AppRoute {
   Main = '/',
   SingIn = '/login',
@@ -13,11 +17,10 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const DEFAULT_ACTIVE_GENRE = 'All genres';
-export const MAX_GENRES = 9;
-
 export enum Action {
-  setActiveGenre = 'set active genre',
+  setActiveGenre = 'Set active genre',
+  ShowMoreFilms = 'Show more films',
+  ResetShowedFilmsCount = 'Reset showed films count'
 }
 
 export enum Tab {

@@ -13,11 +13,10 @@ import { Comment } from '../../types/comment';
 
 type Props = {
   films: Film[],
-  genres: string[];
   comments: Comment[];
 }
 
-function App({ films, comments, genres}: Props): JSX.Element {
+function App({ films, comments}: Props): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
