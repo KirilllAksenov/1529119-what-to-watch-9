@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_ACTIVE_GENRE, INITIAL_SHOW_FILM_COUNT, MAX_GENRES } from '../const';
-import { films } from '../mocks/films';
+import { films as filmItems } from '../mocks/films';
 import { Film } from '../types/film';
-import { resetShowedFilmsCount, setActiveGenre } from './action';
+import { resetShowedFilmsCount, setActiveGenre, showMoreFilms } from './action';
 
 type State = {
   activeGenre: string,
@@ -14,10 +14,10 @@ type State = {
 
 const initialState: State = {
   activeGenre: DEFAULT_ACTIVE_GENRE,
-  initialFilms: films,
-  films: films,
+  initialFilms: filmItems,
+  films: filmItems,
   showedFilmsCount: INITIAL_SHOW_FILM_COUNT,
-  genres: [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(films, ({genre}) => genre)])].slice(0, MAX_GENRES),
+  genres: [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(filmItems, ({genre}) => genre)])].slice(0, MAX_GENRES),
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -28,6 +28,10 @@ export const reducer = createReducer(initialState, (builder) => {
       state.films = state.activeGenre === DEFAULT_ACTIVE_GENRE ? state.films :
         state.initialFilms.filter((film) => film.genre === state.activeGenre);
     })
+    .addCase(showMoreFilms, (state) => {
+      state.showedFilmsCount = state.showedFilmsCount + INITIAL_SHOW_FILM_COUNT;
+    })
     .addCase(resetShowedFilmsCount, (state) => {
       state.showedFilmsCount = INITIAL_SHOW_FILM_COUNT;
-    });});
+    });
+});

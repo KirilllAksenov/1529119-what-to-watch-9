@@ -11,9 +11,11 @@ export type Film = {
     rating: number,
     scoresCount: number,
     director: string,
-    starring: [string],
+    starring: string[],
     runTime: number,
     genre: string,
     released: number,
     isFavorite: boolean,
 };
+
+export type Films = Film[];
