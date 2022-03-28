@@ -8,7 +8,7 @@ import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import { Film} from '../../types/film';
+import { Film } from '../../types/film';
 import { Comment } from '../../types/comment';
 
 type Props = {
