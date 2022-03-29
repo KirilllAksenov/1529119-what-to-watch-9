@@ -3,7 +3,6 @@ import { Comment } from '../../types/comment';
 
 type ReviewsTabProps = {
   comments: Comment[];
-
 }
 
 type ReviewProps = {

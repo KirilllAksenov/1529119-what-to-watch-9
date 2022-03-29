@@ -9,10 +9,6 @@ type Props = {
 function ShowMoreButton({showedFilmsCount, filmsCount}: Props): JSX.Element | null {
   const dispatch = useAppDispatch();
 
-  if (showedFilmsCount >= filmsCount) {
-    return null;
-  }
-
   return (
     <div className="catalog__more">
       <button onClick={() => {

@@ -16,13 +16,12 @@ function MainScreen(): JSX.Element {
 
   const films = useAppSelector((state) => state.films).slice(0, showedFilmsCount);
 
-  const {name, backgroundImage } = films[0];
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={backgroundImage} alt={name} />
+          <img src='' alt=''/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -42,7 +41,9 @@ function MainScreen(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList genres={genres}/>
           <FilmsList films={films}/>
-          <ShowMoreButton showedFilmsCount={showedFilmsCount} filmsCount={filmsCount}/>
+          { showedFilmsCount >= filmsCount
+            ? null
+            : <ShowMoreButton showedFilmsCount={showedFilmsCount} filmsCount={filmsCount}/>}
         </section>
         <Footer/>
       </div>

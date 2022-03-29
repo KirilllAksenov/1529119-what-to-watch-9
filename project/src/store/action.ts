@@ -22,13 +22,6 @@ export const loadFilms = createAction(
   }),
 );
 
-export const loadSimilarFilms = createAction(
-  Action.LoadFilms,
-  (films) => ({
-    payload: films,
-  }),
-);
-
 export const loadFilm = createAction(
   Action.LoadFilm,
   (film) => ({
@@ -43,7 +36,7 @@ export const loadPromoFilm = createAction(
   }),
 );
 
-export const loadComments = createAction(
+export const loadComment = createAction(
   Action.LoadComments,
   (comments) => ({
     payload: comments,
@@ -58,5 +51,6 @@ export const login = createAction(
 );
 
 export const setError = createAction<string>(Action.SetError);
+export const clearErrorAction = createAction<string>(Action.ClearErrorAction);
 export const addComment = createAction(Action.AddComment);
 export const logout = createAction(Action.Logout);

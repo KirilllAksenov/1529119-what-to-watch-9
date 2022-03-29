@@ -1,8 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { DEFAULT_ACTIVE_GENRE, INITIAL_SHOW_FILM_COUNT, MAX_GENRES } from '../const';
-import { films as filmItems } from '../mocks/films';
+import { AuthorizationStatus, DEFAULT_ACTIVE_GENRE, INITIAL_SHOW_FILM_COUNT, MAX_GENRES } from '../const';
 import { Film } from '../types/film';
-import { resetShowedFilmsCount, setActiveGenre, showMoreFilms } from './action';
+import { loadComment, loadFilm, loadFilms, requireAuthorization, resetShowedFilmsCount, setActiveGenre, showMoreFilms, setError } from './action';
 
 type State = {
   activeGenre: string,
@@ -10,14 +9,26 @@ type State = {
   initialFilms: Film[],
   genres: string[],
   showedFilmsCount: number,
+  loadFilms: Film[];
+  authorizationStatus: AuthorizationStatus,
+  loadFilm: Film[],
+  loadComments: Comment[],
+  error: string;
+  isDataLoading: boolean;
 };
 
 const initialState: State = {
   activeGenre: DEFAULT_ACTIVE_GENRE,
-  initialFilms: filmItems,
-  films: filmItems,
+  initialFilms: [],
+  films: [],
+  loadFilms: [],
+  loadFilm: [],
+  loadComments: [],
   showedFilmsCount: INITIAL_SHOW_FILM_COUNT,
-  genres: [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(filmItems, ({genre}) => genre)])].slice(0, MAX_GENRES),
+  genres: [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from([], ({genre}) => genre)])].slice(0, MAX_GENRES),
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: '',
+  isDataLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -33,5 +44,23 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetShowedFilmsCount, (state) => {
       state.showedFilmsCount = INITIAL_SHOW_FILM_COUNT;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.loadFilms = action.payload;
+      state.isDataLoading = true;
+    })
+    .addCase(loadFilm, (state, action) => {
+      state.loadFilm = action.payload;
+      state.isDataLoading = true;
+    })
+    .addCase(loadComment, (state, action) => {
+      state.loadComments = action.payload;
+      state.isDataLoading = true;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
