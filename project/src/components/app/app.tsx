@@ -8,22 +8,15 @@ import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import Loader from '../loader/loader';
-import { Film } from '../../types/film';
-import { Comment } from '../../types/comment';
+import LoaderScreen from '../../screens/loader-screen/loader-screen';
 import { useAppSelector } from '../../hooks';
 
-type Props = {
-  films: Film[],
-  comments: Comment[];
-}
-
-function App({ films, comments}: Props): JSX.Element {
+function App(): JSX.Element {
   const {authorizationStatus, isDataLoading} = useAppSelector((state) => state);
 
   if (!isDataLoading) {
     return (
-      <Loader/>
+      <LoaderScreen/>
     );
   }
   return (
@@ -33,18 +26,18 @@ function App({ films, comments}: Props): JSX.Element {
         <Route path={APIRoute.Login} element={<SingInScreen/>}/>
         <Route path={APIRoute.MyList} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
-            <MyListScreen films={[]}/>
+            <MyListScreen />
           </PrivateRoute>
         }
         />
-        <Route path={APIRoute.Film} element={<MovieScreen films={[]} comments={[]}/>}/>
+        <Route path={APIRoute.Film} element={<MovieScreen />}/>
         <Route path={APIRoute.AddReview} element={
           <PrivateRoute authorizationStatus={authorizationStatus}>
-            <AddReviewScreen films={[]} comments={comments}/>
+            <AddReviewScreen />
           </PrivateRoute>
         }
         />
-        <Route path={APIRoute.Player} element={<PlayerScreen films={[]} />}/>
+        <Route path={APIRoute.Player} element={<PlayerScreen />}/>
         <Route
           path="*"
           element={<NotFoundScreen />}

@@ -2,12 +2,12 @@ import FilmsList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 
-type Props = {
-  films: Film[];
-}
-function MyListScreen ({films}: Props): JSX.Element{
+
+function MyListScreen (): JSX.Element{
+  const {data} = useAppSelector((state) => state.films);
+
   return(
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -28,7 +28,7 @@ function MyListScreen ({films}: Props): JSX.Element{
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmsList films={films}/>
+        <FilmsList films={data}/>
       </section>
       <Footer/>
     </div>
