@@ -1,19 +1,32 @@
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import FormReview from '../../components/form-review/form-review';
 import Logo from '../../components/logo/logo';
-import { Film } from '../../types/film';
-import { Comment } from '../../types/comment';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchSimilarFilmsAction, fetchFilmAction } from '../../store/api-actions';
+import LoaderScreen from '../loader-screen/loader-screen';
 
-type Props = {
-  films: Film[];
-  comments: Comment[];
-}
+function AddReviewScreen() {
+  const params = useParams();
+  const filmId = Number(params.id);
+  const dispatch = useAppDispatch();
+  const {data, isDataLoaded} = useAppSelector((state) => state.film);
+  const {name, id, posterImage, backgroundImage} = data;
 
-function AddReviewScreen({films, comments}: Props) {
+  useEffect(() => {
+    dispatch(fetchFilmAction(filmId));
+    dispatch(fetchSimilarFilmsAction(filmId));
+  },[dispatch, filmId]);
+
+  if (!isDataLoaded) {
+    return <LoaderScreen />;
+  }
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={backgroundImage} alt={name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -24,28 +37,19 @@ function AddReviewScreen({films, comments}: Props) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link to={`/films/${id}`}className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <button className="breadcrumbs__link">Add review</button>
+                <Link to={`/films/${id}/review`}className="breadcrumbs__link">Add review</Link>
               </li>
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="/somepage" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <Logo/>
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={posterImage} alt={name} width="218" height="327" />
         </div>
       </div>
       <div className="add-review">
@@ -54,4 +58,5 @@ function AddReviewScreen({films, comments}: Props) {
     </section>
   );
 }
+
 export default AddReviewScreen;

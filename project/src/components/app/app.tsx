@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { APIRoute } from '../../const';
+import { AppRoute } from '../../const';
 import MainScreen from '../../screens/main-screen/main-screen';
 import SingInScreen from '../../screens/sign-in-screen/sign-in-screen';
 import MyListScreen from '../../screens/my-list-screen/my-list-screen';
-import MovieScreen from '../../screens/movie-screen/movie-screen';
+import FilmScreen from '../../screens/film-screen/film-screen';
 import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
@@ -12,9 +12,9 @@ import LoaderScreen from '../../screens/loader-screen/loader-screen';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoading} = useAppSelector((state) => state);
+  const {isDataLoaded} = useAppSelector((state) => state.films);
 
-  if (!isDataLoading) {
+  if (!isDataLoaded) {
     return (
       <LoaderScreen/>
     );
@@ -22,22 +22,22 @@ function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={APIRoute.Main} element={<MainScreen/>}/>
-        <Route path={APIRoute.Login} element={<SingInScreen/>}/>
-        <Route path={APIRoute.MyList} element={
-          <PrivateRoute authorizationStatus={authorizationStatus}>
+        <Route path={AppRoute.Main} element={<MainScreen/>}/>
+        <Route path={AppRoute.Login} element={<SingInScreen/>}/>
+        <Route path={AppRoute.MyList} element={
+          <PrivateRoute>
             <MyListScreen />
           </PrivateRoute>
         }
         />
-        <Route path={APIRoute.Film} element={<MovieScreen />}/>
-        <Route path={APIRoute.AddReview} element={
-          <PrivateRoute authorizationStatus={authorizationStatus}>
+        <Route path={AppRoute.Film} element={<FilmScreen />}/>
+        <Route path={AppRoute.AddReview} element={
+          <PrivateRoute >
             <AddReviewScreen />
           </PrivateRoute>
         }
         />
-        <Route path={APIRoute.Player} element={<PlayerScreen />}/>
+        <Route path={AppRoute.Player} element={<PlayerScreen />}/>
         <Route
           path="*"
           element={<NotFoundScreen />}

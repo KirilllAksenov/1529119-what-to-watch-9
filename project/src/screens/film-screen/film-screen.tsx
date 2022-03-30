@@ -1,26 +1,43 @@
 import { Link, useParams } from 'react-router-dom';
-import { Film } from '../../types/film';
-import { Comment } from '../../types/comment';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Logo from '../../components/logo/logo';
 import Tabs from '../../components/tabs/tabs';
+import LoaderScreen from '../loader-screen/loader-screen';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
+import { useEffect } from 'react';
+//import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type Props = {
-  films: Film[];
-  comments: Comment[];
-}
-
-function MovieScreen({films, comments}: Props): JSX.Element{
+function FilmScreen(): JSX.Element{
   const params = useParams<string>();
 
-  const paramsId = Number(params.id);
+  const filmId = Number(params.id);
 
-  const film: Film = films.filter((currentFilm) => currentFilm.id === paramsId)[0];
-  const commentsCurrentFilm: Comment[] = comments.filter((currentComments) => currentComments.id === paramsId);
+  const dispatch = useAppDispatch();
 
-  const {name, id, posterImage, genre, released, backgroundImage} = film;
+  useEffect(() => {
+    dispatch(fetchGetFilmAction(filmId));
+    dispatch(fetchGetSimilarFilmsAction(filmId));
+  },[dispatch, filmId]);
+
+  const {film, films, user} = useAppSelector((state) => state);
+
+  const activeFilm = film.data;
+
+  const commentsActiveFilm = film.comments.data;
+
+  const {name, id, posterImage, genre, released, backgroundImage} = activeFilm;
+
+  //!обработка ошибок на слушай отсутствия подключения к интернету NOT FOUND SCREEN
+  //if (film.error) {
+  //return <NotFoundScreen/>
+  //}
+
+  if (!film.isDataLoaded) {
+    return <LoaderScreen />;
+  }
 
   return (
     <>
@@ -62,7 +79,11 @@ function MovieScreen({films, comments}: Props): JSX.Element{
                     <span>My list</span>
                   </button>
                 </Link>
-                <Link to="/film/:id/review"className="btn film-card__button">Add review</Link>
+
+                {user.authorizationStatus === AuthorizationStatus.Auth
+                  ?  <Link to={`/films/${id}/review`}className="btn film-card__button">Add review</Link>
+                  : ' '}
+
               </div>
             </div>
           </div>
@@ -75,7 +96,7 @@ function MovieScreen({films, comments}: Props): JSX.Element{
             </div>
 
             <div className="film-card__desc">
-              <Tabs film={film} comments={commentsCurrentFilm}/>
+              <Tabs film={activeFilm} comments={commentsActiveFilm}/>
             </div>
           </div>
         </div>
@@ -85,7 +106,7 @@ function MovieScreen({films, comments}: Props): JSX.Element{
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={films} genre={genre} id={id}/>
+          <FilmList films={films.similarFilms}/>
         </section>
         <Footer/>
       </div>
@@ -93,4 +114,12 @@ function MovieScreen({films, comments}: Props): JSX.Element{
   );
 }
 
-export default MovieScreen;
+export default FilmScreen;
+function fetchGetFilmAction(filmId: number): any {
+  throw new Error('Function not implemented.');
+}
+
+function fetchGetSimilarFilmsAction(filmId: number): any {
+  throw new Error('Function not implemented.');
+}
+

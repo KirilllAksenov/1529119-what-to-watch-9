@@ -1,23 +1,21 @@
-import { Film } from '../../types/film';
+import { useAppSelector } from '../../hooks';
 import Controls from '../controls/controls';
 
-type Props = {
-  films: Film[],
-}
+function FilmPoster(): JSX.Element {
 
-function FilmPoster({films}: Props): JSX.Element {
-  //const {name, genre, released, posterImage} = films[0];
+  const promoFilm = useAppSelector((state) => state.promoFilm);
+
   return (
     <div className="film-card__info">
       <div className="film-card__poster">
-        <img src='' alt='' width="218" height="327" />
+        <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
       </div>
 
       <div className="film-card__desc">
-        <h2 className="film-card__title">{}</h2>
+        <h2 className="film-card__title">{promoFilm.name}</h2>
         <p className="film-card__meta">
-          <span className="film-card__genre">{}</span>
-          <span className="film-card__year">{}</span>
+          <span className="film-card__genre">{promoFilm.genre}</span>
+          <span className="film-card__year">{promoFilm.released}</span>
         </p>
         <Controls/>
       </div>

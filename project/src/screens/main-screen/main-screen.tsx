@@ -8,20 +8,21 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks';
 
 function MainScreen(): JSX.Element {
-  const genres = useAppSelector((state) => state.genres);
+  const genres = useAppSelector((state) => state.films.genres);
 
-  const filmsCount = useAppSelector((state) => state.films.length);
+  const filmsCount = useAppSelector((state) => state.films.data.length);
 
   const showedFilmsCount = useAppSelector((state) => state.showedFilmsCount);
 
-  const films = useAppSelector((state) => state.films).slice(0, showedFilmsCount);
+  const films = useAppSelector((state) => state.films.data).slice(0, showedFilmsCount);
 
+  const promoFilm = useAppSelector((state) => state.promoFilm);
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src='' alt=''/>
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -32,7 +33,7 @@ function MainScreen(): JSX.Element {
         </header>
 
         <div className="film-card__wrap">
-          <FilmPoster films={films}/>
+          <FilmPoster />
         </div>
       </section>
 

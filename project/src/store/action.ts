@@ -29,6 +29,13 @@ export const loadFilm = createAction(
   }),
 );
 
+export const loadSimilarFilms = createAction(
+  Action.LoadSimilarFilms,
+  (similarFilms) => ({
+    payload: similarFilms,
+  }),
+);
+
 export const loadPromoFilm = createAction(
   Action.LoadPromoFilm,
   (promoFilm) => ({

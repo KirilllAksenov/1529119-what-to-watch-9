@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/index';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/server';
-import {APIRoute} from '../../const';
+import {AppRoute} from '../../const';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 
@@ -75,7 +75,7 @@ function SingInScreen(): JSX.Element {
           <div className='sign-in__submit'>
             <button
               className='sign-in__btn'
-              onClick={() => navigate(APIRoute.Main)}
+              onClick={() => navigate(AppRoute.Main)}
               type='submit'
             >
               Sign in

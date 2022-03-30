@@ -6,17 +6,22 @@ export const REQUEST_TIMEOUT = 5000;
 export const TIMEOUT_SHOW_ERROR = 3000;
 
 export enum APIRoute {
-  Main = '/',
   Login = '/login',
   Logout = '/logout',
   Films = '/films',
-  Film = '/film/:id',
-  SimilarFilm = '/films/:id/similar',
+  SimilarFilm = '/similar',
   PromoFilm = '/promo',
-  Comments = '/comments/:id',
+  Comments = '/comments',
+  Favorite = '/favorite',
+}
+
+export enum AppRoute {
+  Main = '/',
+  Login = '/login',
   MyList = '/mylist',
+  Film = '/films/:id',
+  AddReview = '/films/:id/review',
   Player = '/player/:id',
-  AddReview = '/film/:id/review',
 }
 
 export enum AuthorizationStatus {
