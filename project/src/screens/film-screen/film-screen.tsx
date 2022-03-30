@@ -8,6 +8,7 @@ import LoaderScreen from '../loader-screen/loader-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const';
 import { useEffect } from 'react';
+import { fetchSimilarFilmsAction, fetchFilmAction } from '../../store/api-actions';
 //import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function FilmScreen(): JSX.Element{
@@ -18,8 +19,8 @@ function FilmScreen(): JSX.Element{
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchGetFilmAction(filmId));
-    dispatch(fetchGetSimilarFilmsAction(filmId));
+    dispatch(fetchFilmAction(filmId));
+    dispatch(fetchSimilarFilmsAction(filmId));
   },[dispatch, filmId]);
 
   const {film, films, user} = useAppSelector((state) => state);
@@ -115,11 +116,3 @@ function FilmScreen(): JSX.Element{
 }
 
 export default FilmScreen;
-function fetchGetFilmAction(filmId: number): any {
-  throw new Error('Function not implemented.');
-}
-
-function fetchGetSimilarFilmsAction(filmId: number): any {
-  throw new Error('Function not implemented.');
-}
-

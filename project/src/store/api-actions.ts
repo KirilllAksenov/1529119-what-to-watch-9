@@ -71,9 +71,9 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
 
 export const fetchCommentAction = createAsyncThunk(
   Action.LoadComments,
-  async () => {
+  async (filmId: number) => {
     try {
-      const {data} = await api.get<Comment>(APIRoute.Comments);
+      const {data} = await api.get<Comment>(`${APIRoute.Comments}/${filmId}`);
       store.dispatch(loadComment(data));
     } catch (error) {
       errorHandle(error);

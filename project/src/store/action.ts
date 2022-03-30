@@ -6,6 +6,7 @@ export const setActiveGenre = createAction(Action.setActiveGenre, (genre) => ({
 }));
 
 export const showMoreFilms = createAction(Action.ShowMoreFilms);
+
 export const resetShowedFilmsCount = createAction(Action.ResetShowedFilmsCount);
 
 export const requireAuthorization = createAction(
@@ -58,6 +59,9 @@ export const login = createAction(
 );
 
 export const setError = createAction<string>(Action.SetError);
+
 export const clearErrorAction = createAction<string>(Action.ClearErrorAction);
+
 export const addComment = createAction(Action.AddComment);
+
 export const logout = createAction(Action.Logout);

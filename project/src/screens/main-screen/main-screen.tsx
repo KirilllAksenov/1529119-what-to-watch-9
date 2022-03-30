@@ -29,8 +29,8 @@ function MainScreen(): JSX.Element {
 
         <header className="page-header film-card__head">
           <Logo/>
-          <Login/>
         </header>
+        <Login/>
 
         <div className="film-card__wrap">
           <FilmPoster />

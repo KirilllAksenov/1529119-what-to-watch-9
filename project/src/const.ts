@@ -1,7 +1,7 @@
 export const DEFAULT_ACTIVE_GENRE = 'All genres';
 export const MAX_GENRES = 9;
 export const INITIAL_SHOW_FILM_COUNT = 8;
-export const BACKEND_URL = 'https://9.react.pages.academy/wtw/';
+export const BACKEND_URL = 'https://9.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const TIMEOUT_SHOW_ERROR = 3000;
 

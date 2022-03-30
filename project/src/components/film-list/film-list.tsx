@@ -6,11 +6,9 @@ const MAX_FILMS_COUNT = 8;
 
 type Props = {
   films: Film[];
-  genre?: string;
-  id?: number;
 }
 
-function FilmsList({films, genre, id}: Props): JSX.Element {
+function FilmsList({films}: Props): JSX.Element {
   const [activeFilmId, setActiveFilmId] = useState<number | null>(null);
 
   return (

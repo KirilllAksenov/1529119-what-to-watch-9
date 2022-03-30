@@ -10,13 +10,13 @@ type Props = {
 }
 
 function DetailsTab({film}: Props):JSX.Element {
-  const {director, starring, runTime, genre, released} = film;
+  const {director, runTime, genre, released} = film;
 
   return(
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
         <DetailsItem name='Director' value={director}/>
-        <DetailsItem name='Starring' value={starring.join('')}/>
+        <DetailsItem name='Starring' value=''/>
       </div>
 
       <div className="film-card__text-col">
