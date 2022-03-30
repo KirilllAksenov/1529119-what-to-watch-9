@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import MainScreen from '../../screens/main-screen/main-screen';
 import SingInScreen from '../../screens/sign-in-screen/sign-in-screen';
 import MyListScreen from '../../screens/my-list-screen/my-list-screen';
@@ -11,20 +11,20 @@ import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import LoaderScreen from '../../screens/loader-screen/loader-screen';
 import browserHistory  from '../../browser-history';
 import HistoryRouter from '../../components/history-route/history-router';
-//import NoAuthScreen from '../../screens/no-auth-screen/no-auth-screen';
+import NoAuthScreen from '../../screens/no-auth-screen/no-auth-screen';
 import {useAppSelector} from '../../hooks';
 
 
 function App(): JSX.Element {
   const {isDataLoaded} = useAppSelector((state) => state.films);
-  //const { user} = useAppSelector((state) => state);
+  const { user} = useAppSelector((state) => state);
   if (!isDataLoaded) {
     return <LoaderScreen />;
   }
 
-  //if (user.authorizationStatus !== AuthorizationStatus.Auth) {
-  //return <NoAuthScreen />;
-  //}
+  if (user.authorizationStatus !== AuthorizationStatus.Auth) {
+    return <NoAuthScreen />;
+  }
 
   return (
     <HistoryRouter history={browserHistory}>
@@ -36,6 +36,14 @@ function App(): JSX.Element {
           element={
             <PrivateRoute>
               <MyListScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Login}
+          element={
+            <PrivateRoute>
+              <NoAuthScreen />
             </PrivateRoute>
           }
         />

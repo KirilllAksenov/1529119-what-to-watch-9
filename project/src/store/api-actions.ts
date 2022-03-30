@@ -1,9 +1,9 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store, api} from '../store';
 import {saveToken, dropToken} from '../API/token';
-import {APIRoute, AuthorizationStatus, Action, TIMEOUT_SHOW_ERROR, DEFAULT_ACTIVE_GENRE, MAX_GENRES} from '../const';
+import {APIRoute, AuthorizationStatus, Action, TIMEOUT_SHOW_ERROR, DEFAULT_ACTIVE_GENRE, MAX_GENRES, AppRoute} from '../const';
 import {AuthData, UserData} from '../types/server';
-import {loadComment, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, requireAuthorization, setError} from './action';
+import {loadComment, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, redirectToRoute, requireAuthorization, setError} from './action';
 import {Film, Films} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
 import { errorHandle } from '../API/error-handle';
@@ -101,6 +101,7 @@ export const loginAction = createAsyncThunk(
       const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(data.token);
       store.dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.Auth, data: data}));
+      store.dispatch(redirectToRoute(AppRoute.Main));
     } catch (error) {
       errorHandle(error);
       store.dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));

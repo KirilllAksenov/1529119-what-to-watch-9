@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Action} from '../const';
+import {Action, AppRoute} from '../const';
 
 export const setActiveGenre = createAction(Action.setActiveGenre, (genre) => ({
   payload: genre,
@@ -65,3 +65,5 @@ export const clearErrorAction = createAction<string>(Action.ClearErrorAction);
 export const addComment = createAction(Action.AddComment);
 
 export const logout = createAction(Action.Logout);
+
+export const redirectToRoute = createAction<AppRoute>(Action.Redirect);

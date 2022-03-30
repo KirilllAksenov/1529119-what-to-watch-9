@@ -103,7 +103,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.film.comments.isDataLoaded = true;
     })
     .addCase(requireAuthorization, (state, action) => {
-      state.user.authorizationStatus = action.payload;
+      state.user.authorizationStatus = action.payload.authorizationStatus;
       state.user.data = action.payload.data;
     })
     .addCase(setError, (state, action) => {

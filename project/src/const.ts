@@ -51,6 +51,7 @@ export enum Action {
   Login = 'Login',
   Logout = 'Logout',
   AddComment = 'Add comment',
+  Redirect = 'Redirect',
 }
 
 export enum Tab {

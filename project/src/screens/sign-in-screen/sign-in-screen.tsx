@@ -26,6 +26,7 @@ function SingInScreen(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
+      navigate(AppRoute.Main);
     }
   };
 
@@ -75,7 +76,6 @@ function SingInScreen(): JSX.Element {
           <div className='sign-in__submit'>
             <button
               className='sign-in__btn'
-              onClick={() => navigate(AppRoute.Main)}
               type='submit'
             >
               Sign in
