@@ -2,8 +2,6 @@ import { useState } from 'react';
 import {Film} from '../../types/film';
 import FilmCard from '../film-card/film-card';
 
-const MAX_FILMS_COUNT = 8;
-
 type Props = {
   films: Film[];
 }
@@ -20,7 +18,7 @@ function FilmsList({films}: Props): JSX.Element {
           isActive={film.id === activeFilmId}
           onHover={setActiveFilmId}
         />
-      )).slice(0, MAX_FILMS_COUNT)}
+      ))}
     </div>
   );
 }

@@ -1,11 +1,10 @@
 import {useRef, FormEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/index';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/server';
 import {AppRoute} from '../../const';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
 
 function SingInScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -33,10 +32,15 @@ function SingInScreen(): JSX.Element {
   return (
     <div className='user-page'>
       <header className='page-header user-page__head'>
-        <Logo />
+        <div className="logo">
+          <Link to="/" className="logo__link">
+            <span className="logo__letter logo__letter--1">W</span>
+            <span className="logo__letter logo__letter--2">T</span>
+            <span className="logo__letter logo__letter--3">W</span>
+          </Link>
+        </div>
         <h1 className='page-title user-page__title'>Sign in</h1>
       </header>
-
       <div className='sign-in user-page__content'>
         <form action='#' className='sign-in__form' onSubmit={handleSubmit}>
           <div className='sign-in__fields'>

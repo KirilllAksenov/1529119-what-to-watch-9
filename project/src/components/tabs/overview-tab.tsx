@@ -4,38 +4,56 @@ type Props = {
   film: Film;
 }
 
-const ratingsValue = {
-  0: 'Bad',
-  1: 'Bad',
-  2: 'Bad',
-  3: 'Normal',
-  4: 'Normal',
-  5: 'Good',
-  6: 'Good',
-  7: 'Good',
-  8: 'Very Good',
-  9: 'Very Good',
-  10: 'Awesome',
+const ratingValue = [
+  {
+    min: 0,
+    max: 3,
+    value: 'Bad',
+  },
+  {
+    min: 3,
+    max: 5,
+    value: 'Normal',
+  },
+  {
+    min: 5,
+    max: 8,
+    value: 'Good',
+  },
+  {
+    min: 8,
+    max: 10,
+    value: 'Very good',
+  },
+  {
+    min: 10,
+    max: Infinity,
+    value: 'Awesome',
+  },
+];
+
+const getRatingValue = (rating: number) => {
+  const findededRating = ratingValue.find((item) => rating >= item.min && rating <= item.max);
+  return findededRating?.value;
 };
 
 function OverviewTab({film}: Props):JSX.Element {
   const {rating, scoresCount, description, director, starring} = film;
+
   return (
     <>
       <div className="film-rating">
         <div className="film-rating__score">{rating}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{ratingsValue[9]}</span>
+          <span className="film-rating__level">{getRatingValue(rating)}</span>
           <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
 
       <div className="film-card__text">
         <p>{description}</p>
-
         <p className="film-card__director"><strong>Director: {director}</strong></p>
-
-        <p className="film-card__starring"><strong>Starring: {starring}</strong></p>
+        <p className="film-card__starring"><strong>Starring: {starring.join(', ')}</strong></p>
       </div>
     </>
   );
