@@ -1,5 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DEFAULT_COMMENT, DEFAULT_RATING } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { addComment } from '../../store/api-actions';
@@ -13,6 +13,7 @@ function FormReview(): JSX.Element {
   const [comment, setComment] = useState(DEFAULT_COMMENT);
 
   const params = useParams();
+  const navigate = useNavigate();
 
   const filmId = Number(params.id);
 
@@ -45,6 +46,7 @@ function FormReview(): JSX.Element {
 
     if (comment) {
       onSubmit({comment: comment, rating: rating, filmId: filmId});
+      navigate(`/films/${filmId}`);
     }
   };
 
