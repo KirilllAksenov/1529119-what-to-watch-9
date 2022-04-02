@@ -1,11 +1,12 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks';
+import { getPromoFilm } from '../../store/server-process/server-process';
 import FilmPoster from '../film-poster/film-poster';
 import Login from '../login/login';
 import Logotip from '../logotip/logotip';
 
 function Header() {
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const promoFilm = useAppSelector(getPromoFilm);
   return (
     <section className="film-card">
       <div className="film-card__bg">

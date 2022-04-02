@@ -1,12 +1,11 @@
 import {useRef, FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Footer from '../../components/footer/footer';
+import Logotip from '../../components/logotip/logotip';
 import {useAppDispatch} from '../../hooks/index';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/server';
 import {AppRoute} from '../../const';
-import Footer from '../../components/footer/footer';
-import Logotip from '../../components/logotip/logotip';
-import React from 'react';
 
 function SingInScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

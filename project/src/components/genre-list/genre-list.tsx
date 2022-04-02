@@ -1,17 +1,19 @@
-import { useAppSelector } from '../../hooks';
+import {useAppSelector} from '../../hooks';
+import {getActiveGenre} from '../../store/app-process/app-process';
 import GenreItem from './genre-item';
 
-function GenreList(): JSX.Element {
-  const genres = useAppSelector((state) => state.films.genres);
-  const activeGenre: string = useAppSelector((state) => state.activeGenre);
+type Props = {
+  genres: string[];
+};
 
-  const genreList = genres.map(((genre) => <GenreItem key={genre} genre={genre} activeGenre={activeGenre} /> ));
+function GenreList({genres}: Props): JSX.Element {
+  const activeGenre = useAppSelector(getActiveGenre);
 
-  return (
-    <ul className="catalog__genres-list">
-      {genreList}
-    </ul>
-  );
+  const genreList = genres.map((genre) => (
+    <GenreItem key={genre} genre={genre} activeGenre={activeGenre} />
+  ));
+
+  return <ul className='catalog__genres-list'>{genreList}</ul>;
 }
 
 export default GenreList;

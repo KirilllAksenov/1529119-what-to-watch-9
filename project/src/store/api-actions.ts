@@ -1,14 +1,16 @@
+import axios from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store, api} from '../store';
 import {saveToken, dropToken} from '../API/token';
-import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, DEFAULT_ACTIVE_GENRE, MAX_GENRES, AppRoute, HTTP_CODE} from '../const';
+import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HTTP_CODE} from '../const';
 import {AuthData, UserData} from '../types/server';
-import {loadComment, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, redirectToRoute, requireAuthorization, setError} from './action';
-import {Film} from '../types/film';
+import {redirectToRoute} from './action';
+import { requireAuthorization } from './user-process/user-process';
+import {Film, FilmStatus} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
-import axios from 'axios';
+import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './server-process/server-process';
+import { getGenres } from './app-process/app-process';
 
-const getGenres = (films: Film[]) => [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(films, ({genre}) => genre)])].slice(0, MAX_GENRES);
 
 export const fetchFilmsAction = createAsyncThunk(
   '/loadFilms',
@@ -32,7 +34,6 @@ export const fetchFilmAction = createAsyncThunk(
         }
       }
     }
-
   },
 );
 
@@ -52,11 +53,19 @@ export const fetchPromoFilmAction = createAsyncThunk(
   },
 );
 
+export const fetchFavoriteFilmsAction = createAsyncThunk(
+  'loadFavoriteFilms',
+  async () => {
+    const {data} = await api.get<Film[]>(APIRoute.Favorite);
+    store.dispatch(loadFavoriteFilms({data}));
+  },
+);
+
 export const fetchCommentAction = createAsyncThunk(
   'loadComments',
   async (filmId: number) => {
     const {data} = await api.get<Comment>(`${APIRoute.Comments}/${filmId}`);
-    store.dispatch(loadComment(data));
+    store.dispatch(loadComments(data));
   },
 );
 
@@ -109,5 +118,13 @@ export const clearErrorAction = createAsyncThunk(
       () => store.dispatch(setError('')),
       TIMEOUT_SHOW_ERROR,
     );
+  },
+);
+
+export const changeStatusToView = createAsyncThunk(
+  '/changeStatus',
+  async ({filmId: id, status: isFavorite}: FilmStatus) => {
+    const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+    store.dispatch(loadFilm({data, isLoaded: true, isFound: true}));
   },
 );

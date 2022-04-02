@@ -1,11 +1,10 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks';
+import { getPromoFilm } from '../../store/server-process/server-process';
 import Controls from '../controls/controls';
 
 function FilmPoster(): JSX.Element {
-
-  const promoFilm = useAppSelector((state) => state.promoFilm);
-  const id = useAppSelector((state) => state.film.data.id);
+  const promoFilm = useAppSelector(getPromoFilm);
 
   return (
     <div className="film-card__info">
@@ -19,7 +18,7 @@ function FilmPoster(): JSX.Element {
           <span className="film-card__genre">{promoFilm.genre}</span>
           <span className="film-card__year">{promoFilm.released}</span>
         </p>
-        <Controls id={id}/>
+        <Controls />
       </div>
     </div>
   );

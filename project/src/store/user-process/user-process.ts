@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, AuthorizationStatus} from '../../const';
 import { UserData } from '../../types/server';
-import {UserProcess} from '../../types/state';
+import {State, UserProcess} from '../../types/state';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -19,4 +19,6 @@ export const userProcess = createSlice({
   },
 });
 
+export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
+export const getUserData = (state: State): UserData => state[NameSpace.user].data;
 export const {requireAuthorization} = userProcess.actions;

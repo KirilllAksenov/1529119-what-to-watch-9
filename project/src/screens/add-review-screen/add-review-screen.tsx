@@ -4,22 +4,24 @@ import FormReview from '../../components/form-review/form-review';
 import Login from '../../components/login/login';
 import Logotip from '../../components/logotip/logotip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchSimilarFilmsAction, fetchFilmAction } from '../../store/api-actions';
+import { fetchFilmAction } from '../../store/api-actions';
+import { getFilm, getLoadedFilmsStatus } from '../../store/server-process/server-process';
 import LoaderScreen from '../loader-screen/loader-screen';
 
 function AddReviewScreen() {
   const params = useParams();
   const filmId = Number(params.id);
   const dispatch = useAppDispatch();
-  const {data, isDataLoaded} = useAppSelector((state) => state.film);
-  const {name, id, posterImage, backgroundImage} = data;
+  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
+  const film = useAppSelector(getFilm);
+
+  const {name, id, posterImage, backgroundImage} = film;
 
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
-    dispatch(fetchSimilarFilmsAction(filmId));
   },[dispatch, filmId]);
 
-  if (!isDataLoaded) {
+  if (!isFilmLoaded) {
     return <LoaderScreen />;
   }
 

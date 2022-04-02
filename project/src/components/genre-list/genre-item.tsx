@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {useAppDispatch} from '../../hooks';
-import {setActiveGenre} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import { getFilms} from '../../store/server-process/server-process';
+import { filterFilmsByGenre, setGenre} from '../../store/app-process/app-process';
 
 type Props = {
   activeGenre: string,
@@ -10,9 +11,16 @@ type Props = {
 
 function GenreItem({activeGenre, genre}: Props): JSX.Element {
   const dispatch =  useAppDispatch();
+  const initialFilms = useAppSelector(getFilms);
+
+  const handleClickGenre = () => {
+    dispatch(setGenre(genre));
+    dispatch(filterFilmsByGenre(initialFilms));
+  };
+
   return (
     <li className = {`catalog__genres-item ${genre === activeGenre ? 'catalog__genres-item--active' : ''}`}>
-      <Link onClick = {() => {dispatch(setActiveGenre(genre));}} to={'/'} className="catalog__genres-link">{genre}</Link>
+      <Link onClick = {handleClickGenre} to={'/'} className="catalog__genres-link">{genre}</Link>
     </li>
   );
 }

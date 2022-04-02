@@ -1,7 +1,7 @@
 export const DEFAULT_ACTIVE_GENRE = 'All genres';
 export const MAX_GENRES = 9;
 export const INITIAL_FILMS_COUNT = 8;
-export const FILM_PER_PAGE = 8;
+export const FILMS_PER_PAGE = 8;
 export const MAX_SIMILAR_FILMS = 4;
 export const BACKEND_URL = 'https://9.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
@@ -47,7 +47,7 @@ export enum Tab {
 }
 
 export enum NameSpace {
-  data = 'DATA',
+  server = 'SERVER',
   user = 'USER',
   app ='APP',
 }
