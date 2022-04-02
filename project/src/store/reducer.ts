@@ -1,33 +1,113 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { DEFAULT_ACTIVE_GENRE, INITIAL_SHOW_FILM_COUNT, MAX_GENRES } from '../const';
-import { films } from '../mocks/films';
+import { AuthorizationStatus, DEFAULT_ACTIVE_GENRE, FILM_PER_PAGE, INITIAL_FILMS_COUNT } from '../const';
+import { Comment } from '../types/comment';
 import { Film } from '../types/film';
-import { resetShowedFilmsCount, setActiveGenre } from './action';
+import { UserData } from '../types/server';
+import { loadComment, loadFilm, loadFilms, requireAuthorization, resetShowedFilmsCount, setActiveGenre, showMoreFilms, setError, loadPromoFilm, loadSimilarFilms } from './action';
 
-type State = {
+type InitialState = {
   activeGenre: string,
-  films: Film[],
   initialFilms: Film[],
-  genres: string[],
+  promoFilm: Film,
   showedFilmsCount: number,
-};
+  error: string;
 
-const initialState: State = {
+  films: {
+    data: Film[],
+    similarFilms: Film[],
+    genres: string[],
+    isDataLoaded: boolean;
+  };
+
+  film: {
+    data: Film,
+    isDataLoaded: boolean;
+    errorLoad: boolean;
+
+    comments: {
+      data: Comment[],
+      isDataLoaded: boolean;
+    };
+  };
+
+  user: {
+    authorizationStatus: AuthorizationStatus,
+    data: UserData,
+  };
+}
+
+const initialState: InitialState = {
   activeGenre: DEFAULT_ACTIVE_GENRE,
-  initialFilms: films,
-  films: films,
-  showedFilmsCount: INITIAL_SHOW_FILM_COUNT,
-  genres: [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(films, ({genre}) => genre)])].slice(0, MAX_GENRES),
+  initialFilms: {} as Film[],
+  showedFilmsCount: INITIAL_FILMS_COUNT,
+  error: '',
+
+  films: {
+    data: [] as Film[],
+    genres: [],
+    isDataLoaded: false,
+    similarFilms: [] as Film[],
+  },
+
+  film: {
+    data: {} as Film,
+    isDataLoaded: false,
+    errorLoad: false,
+
+    comments: {
+      data: {} as Comment[],
+      isDataLoaded: false,
+    },
+  },
+
+  promoFilm: {} as Film,
+
+  user: {
+    authorizationStatus: AuthorizationStatus.Unknown,
+    data: {} as UserData,
+  },
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setActiveGenre, (state, action) => {
-      state.showedFilmsCount = INITIAL_SHOW_FILM_COUNT;
+      state.showedFilmsCount = INITIAL_FILMS_COUNT;
       state.activeGenre = action.payload;
-      state.films = state.activeGenre === DEFAULT_ACTIVE_GENRE ? state.films :
+      state.films.data = state.activeGenre === DEFAULT_ACTIVE_GENRE ? state.initialFilms :
         state.initialFilms.filter((film) => film.genre === state.activeGenre);
     })
+    .addCase(showMoreFilms, (state) => {
+      state.showedFilmsCount = state.showedFilmsCount + FILM_PER_PAGE;
+    })
     .addCase(resetShowedFilmsCount, (state) => {
-      state.showedFilmsCount = INITIAL_SHOW_FILM_COUNT;
-    });});
+      state.showedFilmsCount = INITIAL_FILMS_COUNT;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.initialFilms = action.payload.data;
+      state.films.data = action.payload.data;
+      state.films.genres = action.payload.genres;
+      state.films.isDataLoaded = true;
+    })
+    .addCase(loadFilm, (state, action) => {
+      state.film.data = action.payload.data;
+      state.film.isDataLoaded = action.payload.isLoaded;
+      state.film.errorLoad = false;
+    })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+    })
+    .addCase(loadSimilarFilms, (state, action) => {
+      state.films.similarFilms = action.payload;
+    })
+    .addCase(loadComment, (state, action) => {
+      state.film.comments.data = action.payload;
+      state.film.comments.isDataLoaded = true;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.user.authorizationStatus = action.payload.authorizationStatus;
+      state.user.data = action.payload.data;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    });
+});

@@ -1,48 +1,50 @@
 import FilmPoster from '../../components/film-poster/film-poster';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
 import Login from '../../components/login/login';
 import FilmsList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks';
+import { Link } from 'react-router-dom';
 
 function MainScreen(): JSX.Element {
-  const genres = useAppSelector((state) => state.genres);
+  const genres = useAppSelector((state) => state.films.genres);
 
-  const filmsCount = useAppSelector((state) => state.films.length);
+  const filmsCount = useAppSelector((state) => state.films.data.length);
 
   const showedFilmsCount = useAppSelector((state) => state.showedFilmsCount);
 
-  const films = useAppSelector((state) => state.films).slice(0, showedFilmsCount);
+  const films = useAppSelector((state) => state.films.data).slice(0, showedFilmsCount);
 
-  const {name, backgroundImage } = films[0];
+  const promoFilm = useAppSelector((state) => state.promoFilm);
 
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={backgroundImage} alt={name} />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>
         </div>
-
         <h1 className="visually-hidden">WTW</h1>
-
         <header className="page-header film-card__head">
-          <Logo/>
+          <div className="logo">
+            <Link to="/" className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </Link>
+          </div>
           <Login/>
         </header>
-
         <div className="film-card__wrap">
-          <FilmPoster films={films}/>
+          <FilmPoster />
         </div>
       </section>
-
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenreList genres={genres}/>
           <FilmsList films={films}/>
-          <ShowMoreButton showedFilmsCount={showedFilmsCount} filmsCount={filmsCount}/>
+          {showedFilmsCount < filmsCount && <ShowMoreButton />}
         </section>
         <Footer/>
       </div>

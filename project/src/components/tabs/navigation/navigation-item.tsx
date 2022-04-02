@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { TabName } from '../../types/tab';
+import { TabName } from '../../../types/tab';
 
 type Props = {
   name: TabName;

@@ -1,26 +1,43 @@
 import { Link, useParams } from 'react-router-dom';
-import { Film } from '../../types/film';
-import { Comment } from '../../types/comment';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
-import Logo from '../../components/logo/logo';
 import Tabs from '../../components/tabs/tabs';
+import LoaderScreen from '../loader-screen/loader-screen';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { AuthorizationStatus, MAX_SIMILAR_FILMS } from '../../const';
+import { useEffect } from 'react';
+import { fetchSimilarFilmsAction, fetchFilmAction, fetchCommentAction } from '../../store/api-actions';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type Props = {
-  films: Film[];
-  comments: Comment[];
-}
-
-function MovieScreen({films, comments}: Props): JSX.Element{
+function FilmScreen(): JSX.Element{
   const params = useParams<string>();
 
-  const paramsId = Number(params.id);
+  const filmId = Number(params.id);
 
-  const film: Film = films.filter((currentFilm) => currentFilm.id === paramsId)[0];
-  const commentsCurrentFilm: Comment[] = comments.filter((currentComments) => currentComments.id === paramsId);
+  const dispatch = useAppDispatch();
 
-  const {name, id, posterImage, genre, released, backgroundImage} = film;
+  useEffect(() => {
+    dispatch(fetchFilmAction(filmId));
+    dispatch(fetchSimilarFilmsAction(filmId));
+    dispatch(fetchCommentAction(filmId));
+  },[dispatch, filmId]);
+
+  const film = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.films.similarFilms).slice(0, MAX_SIMILAR_FILMS);
+  const comments = useAppSelector((state) => state.film.comments.data);
+  const isDataLoaded = useAppSelector((state) => state.film.isDataLoaded);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+
+  const {backgroundImage, posterImage, name, released, genre, id} = film.data;
+
+  if (film.errorLoad) {
+    return <NotFoundScreen/>;
+  }
+
+  if (!isDataLoaded) {
+    return <LoaderScreen />;
+  }
 
   return (
     <>
@@ -29,14 +46,17 @@ function MovieScreen({films, comments}: Props): JSX.Element{
           <div className="film-card__bg">
             <img src={backgroundImage} alt={name} />
           </div>
-
           <h1 className="visually-hidden">WTW</h1>
-
           <header className="page-header film-card__head">
-            <Logo/>
+            <div className="logo">
+              <Link to="/" className="logo__link">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </Link>
+            </div>
             <Login/>
           </header>
-
           <div className="film-card__wrap">
             <div className="film-card__desc">
               <h2 className="film-card__title">{name}</h2>
@@ -44,12 +64,11 @@ function MovieScreen({films, comments}: Props): JSX.Element{
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-
               <div className="film-card__buttons">
                 <Link to="/player/:id">
                   <button className="btn btn--play film-card__button" type="button">
                     <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
+                      <use xlinkHref="#play-s" />
                     </svg>
                     <span>Play</span>
                   </button>
@@ -57,35 +76,31 @@ function MovieScreen({films, comments}: Props): JSX.Element{
                 <Link to="/mylist">
                   <button className="btn btn--list film-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
+                      <use xlinkHref="#add" />
                     </svg>
                     <span>My list</span>
                   </button>
                 </Link>
-                <Link to="/film/:id/review"className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${id}/review`}className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>
         </div>
-
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
-
             <div className="film-card__desc">
-              <Tabs film={film} comments={commentsCurrentFilm}/>
+              <Tabs film={film.data} comments={comments}/>
             </div>
           </div>
         </div>
       </section>
-
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <FilmList films={films} genre={genre} id={id}/>
+          <FilmList films={similarFilms}/>
         </section>
         <Footer/>
       </div>
@@ -93,4 +108,4 @@ function MovieScreen({films, comments}: Props): JSX.Element{
   );
 }
 
-export default MovieScreen;
+export default FilmScreen;
