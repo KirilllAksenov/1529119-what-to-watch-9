@@ -1,69 +1,69 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Action, AppRoute} from '../const';
+import {AppRoute} from '../const';
 
-export const setActiveGenre = createAction(Action.setActiveGenre, (genre) => ({
+export const setActiveGenre = createAction('/activeGenre', (genre) => ({
   payload: genre,
 }));
 
-export const showMoreFilms = createAction(Action.ShowMoreFilms);
+export const showMoreFilms = createAction('/showMoreFilms');
 
-export const resetShowedFilmsCount = createAction(Action.ResetShowedFilmsCount);
-
-export const requireAuthorization = createAction(
-  Action.RequireAuthorization,
-  (data) => ({
-    payload: data,
-  }),
-);
+export const resetShowedFilmsCount = createAction('/resetFilms');
 
 export const loadFilms = createAction(
-  Action.LoadFilms,
+  '/loadFilms',
   (films) => ({
     payload: films,
   }),
 );
 
 export const loadFilm = createAction(
-  Action.LoadFilm,
+  'loadFilm',
   (film) => ({
     payload: film,
   }),
 );
 
 export const loadSimilarFilms = createAction(
-  Action.LoadSimilarFilms,
+  'loadSimilarFilms',
   (similarFilms) => ({
     payload: similarFilms,
   }),
 );
 
 export const loadPromoFilm = createAction(
-  Action.LoadPromoFilm,
+  'loadPromoFilm',
   (promoFilm) => ({
     payload: promoFilm,
   }),
 );
 
 export const loadComment = createAction(
-  Action.LoadComments,
+  'loadComments',
   (comments) => ({
     payload: comments,
   }),
 );
 
-export const login = createAction(
-  Action.Login,
+export const addComment = createAction('/addComment');
+
+export const requireAuthorization = createAction(
+  '/requireAuthorization',
   (data) => ({
     payload: data,
   }),
 );
 
-export const setError = createAction<string>(Action.SetError);
+export const login = createAction(
+  '/login',
+  (data) => ({
+    payload: data,
+  }),
+);
 
-export const clearErrorAction = createAction<string>(Action.ClearErrorAction);
+export const logout = createAction('/logout');
 
-export const addComment = createAction(Action.AddComment);
+export const setError = createAction<string>('/setError');
 
-export const logout = createAction(Action.Logout);
+export const clearErrorAction = createAction<string>('/clearError');
 
-export const redirectToRoute = createAction<AppRoute>(Action.Redirect);
+export const redirectToRoute = createAction<AppRoute>('/redirect');

@@ -1,6 +1,14 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-function Controls(): JSX.Element {
+type Props = {
+  id: number;
+}
+function Controls({id}: Props): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+
   return (
     <div className="film-card__buttons">
       <Link to="/player/:id">
@@ -19,8 +27,9 @@ function Controls(): JSX.Element {
           <span>My list</span>
         </button>
       </Link>
+      {authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${id}/review`}className="btn film-card__button">Add review</Link>}
     </div>
   );
 }
 
-export default Controls;
+export default React.memo(Controls);

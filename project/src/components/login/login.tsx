@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -36,4 +37,4 @@ function Login(): JSX.Element{
   );
 }
 
-export default Login;
+export default React.memo(Login);

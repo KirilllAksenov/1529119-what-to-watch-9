@@ -1,14 +1,16 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Tabs from '../../components/tabs/tabs';
 import LoaderScreen from '../loader-screen/loader-screen';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AuthorizationStatus, MAX_SIMILAR_FILMS } from '../../const';
+import { MAX_SIMILAR_FILMS } from '../../const';
 import { useEffect } from 'react';
 import { fetchSimilarFilmsAction, fetchFilmAction, fetchCommentAction } from '../../store/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import Logotip from '../../components/logotip/logotip';
+import Controls from '../../components/controls/controls';
 
 function FilmScreen(): JSX.Element{
   const params = useParams<string>();
@@ -27,8 +29,6 @@ function FilmScreen(): JSX.Element{
   const similarFilms = useAppSelector((state) => state.films.similarFilms).slice(0, MAX_SIMILAR_FILMS);
   const comments = useAppSelector((state) => state.film.comments.data);
   const isDataLoaded = useAppSelector((state) => state.film.isDataLoaded);
-  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
-
   const {backgroundImage, posterImage, name, released, genre, id} = film.data;
 
   if (film.errorLoad) {
@@ -48,13 +48,7 @@ function FilmScreen(): JSX.Element{
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to="/" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logotip/>
             <Login/>
           </header>
           <div className="film-card__wrap">
@@ -64,25 +58,7 @@ function FilmScreen(): JSX.Element{
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-              <div className="film-card__buttons">
-                <Link to="/player/:id">
-                  <button className="btn btn--play film-card__button" type="button">
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s" />
-                    </svg>
-                    <span>Play</span>
-                  </button>
-                </Link>
-                <Link to="/mylist">
-                  <button className="btn btn--list film-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add" />
-                    </svg>
-                    <span>My list</span>
-                  </button>
-                </Link>
-                {authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${id}/review`}className="btn film-card__button">Add review</Link>}
-              </div>
+              <Controls id={id}/>
             </div>
           </div>
         </div>

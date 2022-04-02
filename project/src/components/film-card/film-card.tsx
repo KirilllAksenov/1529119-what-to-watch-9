@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
@@ -48,4 +48,4 @@ function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
   );
 }
 
-export default FilmCard;
+export default memo(FilmCard);
