@@ -8,7 +8,7 @@ import {redirectToRoute} from './action';
 import { requireAuthorization } from './user-process/user-process';
 import {Film, FilmStatus} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
-import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './server-process/server-process';
+import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './app-data/app-data';
 import { getGenres } from './app-process/app-process';
 
 

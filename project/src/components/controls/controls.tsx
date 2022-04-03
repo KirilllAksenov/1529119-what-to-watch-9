@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeStatusToView } from '../../store/api-actions';
-import { getFilm } from '../../store/server-process/server-process';
+import { getFilm } from '../../store/app-data/app-data';
 import { FilmStatus } from '../../types/film';
 
 function Controls(): JSX.Element {

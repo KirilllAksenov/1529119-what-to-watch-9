@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import { getFilm } from '../../store/server-process/server-process';
+import { getFilm } from '../../store/app-data/app-data';
 
 function PlayerScreen(): JSX.Element{
   const film = useAppSelector(getFilm);

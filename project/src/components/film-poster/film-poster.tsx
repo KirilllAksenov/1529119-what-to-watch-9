@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks';
-import { getPromoFilm } from '../../store/server-process/server-process';
+import { getPromoFilm } from '../../store/app-data/app-data';
 import Controls from '../controls/controls';
 
 function FilmPoster(): JSX.Element {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import { getFilms} from '../../store/server-process/server-process';
+import { getFilms} from '../../store/app-data/app-data';
 import { filterFilmsByGenre, setGenre} from '../../store/app-process/app-process';
 
 type Props = {

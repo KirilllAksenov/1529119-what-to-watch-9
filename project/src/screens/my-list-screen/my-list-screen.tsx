@@ -5,7 +5,7 @@ import Login from '../../components/login/login';
 import Logotip from '../../components/logotip/logotip';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteFilms } from '../../store/server-process/server-process';
+import { getFavoriteFilms } from '../../store/app-data/app-data';
 import { getAuthorizationStatus } from '../../store/user-process/user-process';
 
 

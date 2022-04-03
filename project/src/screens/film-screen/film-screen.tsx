@@ -10,7 +10,7 @@ import Logotip from '../../components/logotip/logotip';
 import Controls from '../../components/controls/controls';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSimilarFilmsAction, fetchFilmAction} from '../../store/api-actions';
-import { getComments, getFilm, getFoundedFilmStatus, getLoadedFilmsStatus, getSimilarFilms } from '../../store/server-process/server-process';
+import { getComments, getFilm, getFoundedFilmStatus, getLoadedFilmsStatus, getSimilarFilms } from '../../store/app-data/app-data';
 
 function FilmScreen(): JSX.Element{
   const params = useParams<string>();

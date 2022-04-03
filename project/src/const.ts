@@ -47,7 +47,7 @@ export enum Tab {
 }
 
 export enum NameSpace {
-  server = 'SERVER',
+  data = 'DATA',
   user = 'USER',
   app ='APP',
 }

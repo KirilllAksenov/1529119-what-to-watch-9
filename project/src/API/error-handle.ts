@@ -3,7 +3,7 @@ import {store} from '../store';
 import {clearErrorAction} from '../store/api-actions';
 import {ErrorType} from '../types/server';
 import {HTTP_CODE} from '../const';
-import { setError } from '../store/server-process/server-process';
+import { setError } from '../store/app-data/app-data';
 
 export const errorHandle = (error: ErrorType): void => {
   if (!request.isAxiosError(error)) {

@@ -5,7 +5,7 @@ import Login from '../../components/login/login';
 import Logotip from '../../components/logotip/logotip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilmAction } from '../../store/api-actions';
-import { getFilm, getLoadedFilmsStatus } from '../../store/server-process/server-process';
+import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';
 import LoaderScreen from '../loader-screen/loader-screen';
 
 function AddReviewScreen() {

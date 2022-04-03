@@ -12,7 +12,7 @@ import LoaderScreen from '../../screens/loader-screen/loader-screen';
 import browserHistory  from '../../browser-history';
 import HistoryRouter from '../../components/history-route/history-router';
 import {useAppSelector} from '../../hooks';
-import {getLoadedFilmsStatus } from '../../store/server-process/server-process';
+import {getLoadedFilmsStatus } from '../../store/app-data/app-data';
 
 function App(): JSX.Element {
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);

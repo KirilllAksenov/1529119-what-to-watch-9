@@ -4,7 +4,7 @@ import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFilms} from '../../store/server-process/server-process';
+import { getFilms} from '../../store/app-data/app-data';
 import { useEffect } from 'react';
 import { filterFilmsByGenre, getFilteredFilmsByGenre, getShowedFilmsCount,  getGenres } from '../../store/app-process/app-process';
 
