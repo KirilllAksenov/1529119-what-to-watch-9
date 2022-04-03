@@ -1,34 +1,35 @@
-import React, { SyntheticEvent } from 'react';
+import { memo, SyntheticEvent, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeStatusToView } from '../../store/api-actions';
 import { getFilm } from '../../store/app-data/app-data';
-import { FilmStatus } from '../../types/film';
 
-function Controls(): JSX.Element {
-  const user = useAppSelector(({USER}) => USER);
-  const film = useAppSelector(getFilm);
+function Controls(): JSX.Element | null {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector(({USER}) => USER);
+  const film = useAppSelector(getFilm);
 
-  const handleClickPlayButton = (evt: SyntheticEvent) => {
+  const handleClickPlayButton = useCallback((evt: SyntheticEvent) => {
     evt.preventDefault();
+    if (film) {
+      navigate(`/player/${film.id}`);
+    }
+  },[navigate, film]);
 
-    navigate(`/player/${film.id}`);
-  };
-
-  const changeFilmStatus = (filmStatus: FilmStatus) => {
-    dispatch(changeStatusToView(filmStatus));
-  };
-
-  const handleClickMyListButton = (evt: SyntheticEvent) => {
+  const handleClickMyListButton = useCallback((evt: SyntheticEvent) => {
     evt.preventDefault();
+    if (film) {
+      dispatch(changeStatusToView({filmId: film.id, status: film.isFavorite ? 0 : 1}));
+    }
+  },[dispatch, film]);
 
-    const status = film.isFavorite ? 0 : 1;
+  if(!film) {
+    return <div>Loading</div>;
+  }
 
-    changeFilmStatus({filmId: film.id, status: status});
-  };
+  const {id, isFavorite} = film;
 
   return (
     <div className="film-card__buttons">
@@ -43,14 +44,14 @@ function Controls(): JSX.Element {
       <Link to="/mylist">
         <button onClick={handleClickMyListButton} className="btn btn--list film-card__button" type="button">
           <svg viewBox="0 0 19 20" width="19" height="20">
-            <use xlinkHref={film.isFavorite ? '#in-list' : '#add'}></use>
+            <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
           </svg>
           <span>My list</span>
         </button>
       </Link>
-      {user.authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${film.id}/review`}className="btn film-card__button">Add review</Link>}
+      {user.authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${id}/review`}className="btn film-card__button">Add review</Link>}
     </div>
   );
 }
 
-export default Controls;
+export default memo(Controls);
