@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks';
 import { getPromoFilm } from '../../store/app-data/app-data';
 import FilmPoster from '../film-poster/film-poster';
 import Login from '../login/login';
-import Logotip from '../logotip/logotip';
+import Logotip from '../logo/logotip';
 
 function Header() {
   const promoFilm = useAppSelector(getPromoFilm);

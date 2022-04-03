@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DEFAULT_ACTIVE_GENRE, NameSpace } from '../../const';
+import { NameSpace } from '../../const';
 import { Comment } from '../../types/comment';
 import { Film} from '../../types/film';
 import { State, Unknown} from '../../types/state';
 
 export type AppData = {
   film: {
-    data?: Film;
+    data: Film;
     isLoaded: boolean;
     similarFilms: Film[];
     isFound: boolean | Unknown;
@@ -31,7 +31,7 @@ export type AppData = {
 
 const initialState: AppData = {
   film: {
-    data: undefined,
+    data: {} as Film,
     isLoaded: false,
     similarFilms: [],
     isFound: 'UNKNOWN',
@@ -54,13 +54,10 @@ const initialState: AppData = {
   error: '',
 };
 
-export const AppData = createSlice({
+export const appData = createSlice({
   name: NameSpace.data,
   initialState,
   reducers: {
-    filterFilmsByGenre: (state, action) => {
-      state.films.filteredFilmsByGenre = action.payload === DEFAULT_ACTIVE_GENRE ? state.initialFilms : state.initialFilms.filter((film) => film.genre === action.payload);
-    },
     loadFilms: (state, action) => {
       state.films.data = action.payload.data;
       state.films.isLoaded = true;
@@ -90,17 +87,15 @@ export const AppData = createSlice({
   },
 });
 
-export const getFilms = (state: State): Film[] | [] => state[NameSpace.data].films.data;
 export const getFilm = (state: State): Film | undefined => state[NameSpace.data].film.data;
+export const getFilms = (state: State): Film[] | [] => state[NameSpace.data].films.data;
 export const getPromoFilm = (state: State): Film | undefined => state[NameSpace.data].promoFilm;
 export const getSimilarFilms = (state: State): Film[]  => state[NameSpace.data].film.similarFilms;
 export const getFavoriteFilms = (state: State): Film[]  => state[NameSpace.data].favoriteFilms.data;
-
 export const getFavoriteFilmsStatus = (state: State): boolean => state[NameSpace.data].favoriteFilms.isLoaded;
 export const getLoadedFilmsStatus = (state: State): boolean => state[NameSpace.data].films.isLoaded;
 export const getFoundedFilmStatus = (state: State): boolean | Unknown => state[NameSpace.data].film.isFound;
-
 export const getComments = (state: State): Comment[] => state[NameSpace.data].film.comments.data;
 export const getLoadedCommentsStatus = (state: State): boolean => state[NameSpace.data].film.comments.isLoaded;
 
-export const {loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, loadComments, setError, filterFilmsByGenre, loadFavoriteFilms} = AppData.actions;
+export const {loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, loadComments, setError, loadFavoriteFilms} = appData.actions;

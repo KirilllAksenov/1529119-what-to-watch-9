@@ -10,7 +10,8 @@ function Controls(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const user = useAppSelector(({USER}) => USER);
   const film = useAppSelector(getFilm);
-
+  // eslint-disable-next-line no-console
+  console.log('film :>> ', film);
   const handleClickPlayButton = useCallback((evt: SyntheticEvent) => {
     evt.preventDefault();
     if (film) {

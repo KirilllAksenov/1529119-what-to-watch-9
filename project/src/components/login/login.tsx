@@ -44,4 +44,4 @@ function Login(): JSX.Element{
   );
 }
 
-export default React.memo(Login);
+export default Login;
