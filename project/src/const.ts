@@ -1,7 +1,7 @@
 export const DEFAULT_ACTIVE_GENRE = 'All genres';
 export const MAX_GENRES = 9;
 export const INITIAL_FILMS_COUNT = 8;
-export const FILM_PER_PAGE = 8;
+export const FILMS_PER_PAGE = 8;
 export const MAX_SIMILAR_FILMS = 4;
 export const BACKEND_URL = 'https://9.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
@@ -40,26 +40,14 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
-export enum Action {
-  setActiveGenre = 'Set active genre',
-  ShowMoreFilms = 'Show more films',
-  ResetShowedFilmsCount = 'Reset showed films count',
-  RequireAuthorization = 'Require authorization',
-  SetError = 'Set error',
-  ClearErrorAction = 'Clear error action',
-  LoadFilms = 'Load films',
-  LoadSimilarFilms = 'Load similar films',
-  LoadFilm = 'Load film',
-  LoadPromoFilm = 'Load promo film',
-  LoadComments = 'Load comments',
-  Login = 'Login',
-  Logout = 'Logout',
-  AddComment = 'Add comment',
-  Redirect = 'Redirect',
-}
-
 export enum Tab {
   Overview = 'Overview',
   Details = 'Details',
   Reviews = 'Reviews',
+}
+
+export enum NameSpace {
+  data = 'DATA',
+  user = 'USER',
+  app ='APP',
 }

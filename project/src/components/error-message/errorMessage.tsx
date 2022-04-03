@@ -1,9 +1,9 @@
-import {useAppSelector} from '../../hooks';
+//import {useAppSelector} from '../../hooks';
 
 function ErrorMessage(): JSX.Element | null {
-  const {error} = useAppSelector((state) => state);
+  //const {error} = useAppSelector((state) => state.SERVER.error);
 
-  if (error) {
+  /*   if (error) {
     return (
       <div
         style={{
@@ -19,7 +19,7 @@ function ErrorMessage(): JSX.Element | null {
         {error}
       </div>
     );
-  }
+  } */
 
   return null;
 }

@@ -1,10 +1,11 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import RatingInput from './rating-stars';
 import { DEFAULT_COMMENT, DEFAULT_RATING } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { addComment } from '../../store/api-actions';
 import { CommentData } from '../../types/comment';
-import RatingInput from './rating-stars';
+
 
 const MAX_SCORE = 10;
 

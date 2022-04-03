@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { getFilm } from '../../store/app-data/app-data';
 
 function PlayerScreen(): JSX.Element{
-  const {data} = useAppSelector((state) => state.film);
-  const {videoLink, previewVideoLink} = data;
+  const film = useAppSelector(getFilm);
 
   return (
     <div className="player">
-      <video src={videoLink} className="player__video" poster={previewVideoLink}></video>
+      <video src={film.videoLink} className="player__video" poster={film.previewVideoLink}></video>
       <Link to="/">
         <button type="button" className="player__exit">Exit</button>
       </Link>

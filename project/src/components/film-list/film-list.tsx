@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import {Film} from '../../types/film';
 import FilmCard from '../film-card/film-card';
 
@@ -23,4 +23,4 @@ function FilmsList({films}: Props): JSX.Element {
   );
 }
 
-export default FilmsList;
+export default memo(FilmsList);

@@ -1,27 +1,19 @@
+import axios from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store, api} from '../store';
 import {saveToken, dropToken} from '../API/token';
-import {APIRoute, AuthorizationStatus, Action, TIMEOUT_SHOW_ERROR, DEFAULT_ACTIVE_GENRE, MAX_GENRES, AppRoute, HTTP_CODE} from '../const';
+import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HTTP_CODE} from '../const';
 import {AuthData, UserData} from '../types/server';
-import {loadComment, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, redirectToRoute, requireAuthorization, setError} from './action';
-import {Film} from '../types/film';
+import {redirectToRoute} from './action';
+import { requireAuthorization } from './user-process/user-process';
+import {Film, FilmStatus} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
-import axios from 'axios';
+import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './app-data/app-data';
+import { getGenres } from './app-process/app-process';
 
-const getGenres = (films: Film[]) => [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(films, ({genre}) => genre)])].slice(0, MAX_GENRES);
-
-export const clearErrorAction = createAsyncThunk(
-  '/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError('')),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
 
 export const fetchFilmsAction = createAsyncThunk(
-  Action.LoadFilms,
+  '/loadFilms',
   async () => {
     const {data} = await api.get<Film[]>(APIRoute.Films);
     const genres = getGenres(data);
@@ -30,7 +22,7 @@ export const fetchFilmsAction = createAsyncThunk(
 );
 
 export const fetchFilmAction = createAsyncThunk(
-  Action.LoadFilm,
+  'loadFilm',
   async (filmId: number) => {
     try {
       const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
@@ -42,36 +34,50 @@ export const fetchFilmAction = createAsyncThunk(
         }
       }
     }
-
-  },
-);
-
-export const fetchPromoFilmAction = createAsyncThunk(
-  Action.LoadFilm,
-  async () => {
-    const {data} = await api.get<Film>(APIRoute.PromoFilm);
-    store.dispatch(loadPromoFilm(data));
   },
 );
 
 export const fetchSimilarFilmsAction = createAsyncThunk(
-  Action.LoadSimilarFilms,
+  'loadSimilarFilms',
   async (filmId: number) => {
     const {data} = await api.get<Film[]>(`${APIRoute.Films}/${filmId}${APIRoute.SimilarFilm}`);
     store.dispatch(loadSimilarFilms(data));
   },
 );
 
+export const fetchPromoFilmAction = createAsyncThunk(
+  'loadPromoFilm',
+  async () => {
+    const {data} = await api.get<Film>(APIRoute.PromoFilm);
+    store.dispatch(loadPromoFilm(data));
+  },
+);
+
+export const fetchFavoriteFilmsAction = createAsyncThunk(
+  'loadFavoriteFilms',
+  async () => {
+    const {data} = await api.get<Film[]>(APIRoute.Favorite);
+    store.dispatch(loadFavoriteFilms({data}));
+  },
+);
+
 export const fetchCommentAction = createAsyncThunk(
-  Action.LoadComments,
+  'loadComments',
   async (filmId: number) => {
     const {data} = await api.get<Comment>(`${APIRoute.Comments}/${filmId}`);
-    store.dispatch(loadComment(data));
+    store.dispatch(loadComments(data));
+  },
+);
+
+export const addComment = createAsyncThunk(
+  '/addComment',
+  async ({comment, rating, filmId}:CommentData) => {
+    await api.post<CommentData>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
   },
 );
 
 export const checkAuthAction = createAsyncThunk(
-  Action.RequireAuthorization,
+  '/requireAuthorization',
   async () => {
     try {
       await api.get(APIRoute.Login);
@@ -87,7 +93,7 @@ export const checkAuthAction = createAsyncThunk(
 );
 
 export const loginAction = createAsyncThunk(
-  Action.Login,
+  '/login',
   async({login: email, password}: AuthData) => {
     const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(data.token);
@@ -97,7 +103,7 @@ export const loginAction = createAsyncThunk(
 );
 
 export const logoutAction = createAsyncThunk(
-  Action.Logout,
+  '/logout',
   async () => {
     await api.delete(APIRoute.Logout);
     dropToken();
@@ -105,9 +111,20 @@ export const logoutAction = createAsyncThunk(
   },
 );
 
-export const addComment = createAsyncThunk(
-  Action.AddComment,
-  async ({comment, rating, filmId}:CommentData) => {
-    await api.post<CommentData>(`${APIRoute.Comments}/${filmId}`, {comment, rating});
+export const clearErrorAction = createAsyncThunk(
+  '/clearError',
+  () => {
+    setTimeout(
+      () => store.dispatch(setError('')),
+      TIMEOUT_SHOW_ERROR,
+    );
+  },
+);
+
+export const changeStatusToView = createAsyncThunk(
+  '/changeStatus',
+  async ({filmId: id, status: isFavorite}: FilmStatus) => {
+    const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+    store.dispatch(loadFilm({data, isLoaded: true, isFound: true}));
   },
 );

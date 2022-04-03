@@ -2,23 +2,26 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import FormReview from '../../components/form-review/form-review';
 import Login from '../../components/login/login';
+import Logotip from '../../components/logotip/logotip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchSimilarFilmsAction, fetchFilmAction } from '../../store/api-actions';
+import { fetchFilmAction } from '../../store/api-actions';
+import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';
 import LoaderScreen from '../loader-screen/loader-screen';
 
 function AddReviewScreen() {
   const params = useParams();
   const filmId = Number(params.id);
   const dispatch = useAppDispatch();
-  const {data, isDataLoaded} = useAppSelector((state) => state.film);
-  const {name, id, posterImage, backgroundImage} = data;
+  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
+  const film = useAppSelector(getFilm);
+
+  const {name, id, posterImage, backgroundImage} = film;
 
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
-    dispatch(fetchSimilarFilmsAction(filmId));
   },[dispatch, filmId]);
 
-  if (!isDataLoaded) {
+  if (!isFilmLoaded) {
     return <LoaderScreen />;
   }
 
@@ -30,13 +33,7 @@ function AddReviewScreen() {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
-          <div className="logo">
-            <Link to="/" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
+          <Logotip/>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
