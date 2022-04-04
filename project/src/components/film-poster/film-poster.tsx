@@ -1,10 +1,15 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks';
+import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import { getPromoFilm } from '../../store/app-data/app-data';
 import Controls from '../controls/controls';
 
 function FilmPoster(): JSX.Element {
   const promoFilm = useAppSelector(getPromoFilm);
+
+  if (!promoFilm) {
+    return <NotFoundScreen/>;
+  }
 
   return (
     <div className="film-card__info">

@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getFilm } from '../../store/app-data/app-data';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function PlayerScreen(): JSX.Element{
   const film = useAppSelector(getFilm);
+
+  if(!film) {
+    return <NotFoundScreen/>;
+  }
 
   return (
     <div className="player">

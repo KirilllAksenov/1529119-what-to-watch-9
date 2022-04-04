@@ -5,15 +5,6 @@ import { Film} from '../../types/film';
 import { State, Unknown} from '../../types/state';
 
 export type AppData = {
-  films: {
-    data: Film[];
-    isLoaded: boolean;
-    filteredFilmsByGenre: Film[];
-  }
-  favoriteFilms: {
-    data: Film[];
-    isLoaded: boolean;
-  }
   film: {
     data?: Film;
     isLoaded: boolean;
@@ -23,6 +14,15 @@ export type AppData = {
       data: Comment[];
       isLoaded: boolean;
     };
+  }
+  films: {
+    data: Film[];
+    isLoaded: boolean;
+    filteredFilmsByGenre: Film[];
+  }
+  favoriteFilms: {
+    data: Film[];
+    isLoaded: boolean;
   }
   initialFilms: Film[];
   promoFilm?: Film;
@@ -35,28 +35,22 @@ const initialState: AppData = {
     isLoaded: false,
     similarFilms: [],
     isFound: 'UNKNOWN',
-
     comments: {
-      data: {} as Comment[],
+      data: [],
       isLoaded: false,
     },
   },
-
-  favoriteFilms: {
-    data: [],
-    isLoaded: false,
-  },
-
   films: {
     data: [],
     isLoaded: false,
     filteredFilmsByGenre: [],
   },
-
+  favoriteFilms: {
+    data: [],
+    isLoaded: false,
+  },
   initialFilms: [],
-
   promoFilm: undefined,
-
   error: '',
 };
 

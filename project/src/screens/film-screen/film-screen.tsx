@@ -30,6 +30,10 @@ function FilmScreen(): JSX.Element{
     dispatch(fetchSimilarFilmsAction(filmId));
   },[dispatch, filmId]);
 
+  if(!film) {
+    return <div>Not Found...</div>;
+  }
+
   const {backgroundImage, posterImage, name, released, genre} = film;
 
   if (isFilmFound !== 'UNKNOWN' && !isFilmFound) {

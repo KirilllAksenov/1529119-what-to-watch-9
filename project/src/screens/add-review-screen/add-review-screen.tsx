@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilmAction } from '../../store/api-actions';
 import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';
 import LoaderScreen from '../loader-screen/loader-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function AddReviewScreen() {
   const params = useParams();
@@ -15,15 +16,19 @@ function AddReviewScreen() {
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
   const film = useAppSelector(getFilm);
 
-  const {name, id, posterImage, backgroundImage} = film;
-
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
   },[dispatch, filmId]);
 
+  if (!film) {
+    return <NotFoundScreen/>;
+  }
+
   if (!isFilmLoaded) {
     return <LoaderScreen />;
   }
+
+  const {name, id, posterImage, backgroundImage} = film;
 
   return (
     <section className="film-card film-card--full">

@@ -7,6 +7,11 @@ import Logotip from '../logotip/logotip';
 
 function Header() {
   const promoFilm = useAppSelector(getPromoFilm);
+
+  if (!promoFilm) {
+    return <div>Not Found...</div>;
+  }
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
