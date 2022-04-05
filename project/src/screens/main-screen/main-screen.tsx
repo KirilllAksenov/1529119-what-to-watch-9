@@ -4,14 +4,14 @@ import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFilms} from '../../store/app-data/app-data';
+import { getInitialFilms} from '../../store/app-data/app-data';
 import { useEffect } from 'react';
 import { filterFilmsByGenre, getFilteredFilmsByGenre, getShowedFilmsCount,  getGenres } from '../../store/app-process/app-process';
 
-function MainScreen(): JSX.Element {
 
+function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const initialFilms = useAppSelector(getFilms);
+  const initialFilms = useAppSelector(getInitialFilms);
   const filteredFilmsByGenre = useAppSelector(getFilteredFilmsByGenre);
   const filmsCount = filteredFilmsByGenre.length;
   const showedFilmsCount = useAppSelector(getShowedFilmsCount);

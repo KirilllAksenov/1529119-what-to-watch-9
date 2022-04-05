@@ -59,6 +59,7 @@ export const appData = createSlice({
   initialState,
   reducers: {
     loadFilms: (state, action) => {
+      state.initialFilms = action.payload.data;
       state.films.data = action.payload.data;
       state.films.isLoaded = true;
     },
@@ -69,7 +70,6 @@ export const appData = createSlice({
     loadFilm: (state, action) => {
       state.film.data = action.payload.data;
       state.film.isLoaded = action.payload.isLoaded;
-      state.film.isFound = action.payload.isFound;
     },
     loadPromoFilm: (state, action) => {
       state.promoFilm = action.payload;
@@ -87,6 +87,7 @@ export const appData = createSlice({
   },
 });
 
+export const getInitialFilms = (state: State): Film[] | [] => state[NameSpace.data].initialFilms;
 export const getFilm = (state: State): Film | undefined => state[NameSpace.data].film.data;
 export const getFilms = (state: State): Film[] | [] => state[NameSpace.data].films.data;
 export const getPromoFilm = (state: State): Film | undefined => state[NameSpace.data].promoFilm;
@@ -94,7 +95,6 @@ export const getSimilarFilms = (state: State): Film[]  => state[NameSpace.data].
 export const getFavoriteFilms = (state: State): Film[]  => state[NameSpace.data].favoriteFilms.data;
 export const getFavoriteFilmsStatus = (state: State): boolean => state[NameSpace.data].favoriteFilms.isLoaded;
 export const getLoadedFilmsStatus = (state: State): boolean => state[NameSpace.data].films.isLoaded;
-export const getFoundedFilmStatus = (state: State): boolean | Unknown => state[NameSpace.data].film.isFound;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].film.comments.data;
 export const getLoadedCommentsStatus = (state: State): boolean => state[NameSpace.data].film.comments.isLoaded;
 

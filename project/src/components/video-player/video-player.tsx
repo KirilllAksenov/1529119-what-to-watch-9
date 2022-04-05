@@ -12,7 +12,11 @@ function VideoPlayer({poster, src, isMute, isPlay}: Props): JSX.Element {
 
   useEffect(() => {
     if (videoRef.current !== null) {
-      videoRef.current.muted = true;
+      if (isMute) {
+        videoRef.current.muted = true;
+      } else {
+        videoRef.current.muted = false;
+      }
     }
   }, [isMute]);
 
@@ -20,6 +24,8 @@ function VideoPlayer({poster, src, isMute, isPlay}: Props): JSX.Element {
     if (videoRef.current !== null) {
       if (isPlay) {
         videoRef.current.play();
+      } else {
+        videoRef.current.pause();
       }
     }
   }, [isPlay]);
