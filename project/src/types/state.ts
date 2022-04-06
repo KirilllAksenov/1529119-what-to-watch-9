@@ -17,5 +17,3 @@ export type AppProcess = {
   showedFilmsCount: number;
   filteredFilmsByGenre: Film[];
 }
-
-export type Unknown = 'UNKNOWN';

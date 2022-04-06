@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { getFilms} from '../../store/app-data/app-data';
@@ -24,4 +24,4 @@ function GenreItem({activeGenre, genre}: Props): JSX.Element {
     </li>
   );
 }
-export default GenreItem;
+export default memo(GenreItem);

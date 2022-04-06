@@ -1,18 +1,28 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FilmsList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Logotip from '../../components/logo/logotip';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 import { getFavoriteFilms } from '../../store/app-data/app-data';
 import { getAuthorizationStatus } from '../../store/user-process/user-process';
 
 
 function MyListScreen (): JSX.Element{
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const userAuthorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsAction());
+  },[dispatch]);
+
   const favoriteFilms = useAppSelector(getFavoriteFilms);
+  // eslint-disable-next-line no-console
+  console.log('favoriteFilms :>> ', favoriteFilms);
 
   if (userAuthorizationStatus !== AuthorizationStatus.Auth) {
     navigate(AppRoute.Login);

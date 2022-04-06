@@ -1,4 +1,5 @@
 
+import { memo } from 'react';
 import { playerButtonsControl } from '../../const';
 import ControlButton from '../control-button/control-button';
 
@@ -14,4 +15,4 @@ function PlayerButtonPlay({onClick}: Props): JSX.Element  {
   );
 }
 
-export default PlayerButtonPlay;
+export default memo(PlayerButtonPlay);

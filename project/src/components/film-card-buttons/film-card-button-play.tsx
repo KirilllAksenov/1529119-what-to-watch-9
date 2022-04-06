@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { memo, SyntheticEvent } from 'react';
 import { filmCardButtonsControl } from '../../const';
 import ControlButton from '../control-button/control-button';
 
@@ -14,4 +14,4 @@ function FilmCardButtonPlay({onClick}: Props): JSX.Element  {
   );
 }
 
-export default FilmCardButtonPlay;
+export default memo(FilmCardButtonPlay);

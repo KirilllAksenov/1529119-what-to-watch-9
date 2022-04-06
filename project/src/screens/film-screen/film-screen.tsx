@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
@@ -8,8 +8,9 @@ import LoaderScreen from '../loader-screen/loader-screen';
 import Logotip from '../../components/logo/logotip';
 import FilmButtonsControl from '../../components/film-card-buttons/film-card-buttons';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchSimilarFilmsAction, fetchFilmAction} from '../../store/api-actions';
+import { fetchSimilarFilmsAction, fetchFilmAction, fetchCommentAction} from '../../store/api-actions';
 import { getComments, getFilm, getLoadedFilmsStatus, getSimilarFilms } from '../../store/app-data/app-data';
+import { AuthorizationStatus, MAX_SIMILAR_FILMS } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function FilmScreen(): JSX.Element{
@@ -20,18 +21,24 @@ function FilmScreen(): JSX.Element{
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
     dispatch(fetchSimilarFilmsAction(filmId));
+    dispatch(fetchCommentAction(filmId));
   },[dispatch, filmId]);
 
   const film = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilarFilms);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, MAX_SIMILAR_FILMS);
   const comments = useAppSelector(getComments);
+  const user = useAppSelector(({USER}) => USER);
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
+
+  /* if(!film) {
+    return !error ? <div>Loading...</div> : <div>Error</div>;
+  } */
 
   if(!film) {
     return <NotFoundScreen/>;
   }
 
-  const {backgroundImage, posterImage, name, released, genre} = film;
+  const {backgroundImage, posterImage, name, released, genre, id} = film;
 
   if (!isFilmLoaded) {
     return <LoaderScreen />;
@@ -56,7 +63,9 @@ function FilmScreen(): JSX.Element{
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-              <FilmButtonsControl film={film} />
+              <FilmButtonsControl film={film} >
+                {user.authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>}
+              </FilmButtonsControl>
             </div>
           </div>
         </div>

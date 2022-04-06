@@ -7,25 +7,24 @@ import VideoPlayer from '../../components/video-player/video-player';
 import PlayerButtonPlay from '../../components/player-buttons-control/player-button-play';
 import PlayerButtonFullScreen from '../../components/player-buttons-control/player-button-full-screen';
 import PlayerButtonPause from '../../components/player-buttons-control/player-button-pause';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 function PlayerScreen(): JSX.Element{
   const [isPlay, setIsPlay] = useState(true);
   const film = useAppSelector(getFilm);
   const navigate = useNavigate();
 
-
-  const handleClickExitButton = () => {
+  const handleClickExitButton = useCallback(() => {
     navigate(-1);
-  };
+  },[navigate]);
 
-  const handleClickPlayButton = () => {
+  const handleClickPlayButton = useCallback(() => {
     setIsPlay(false);
-  };
+  },[setIsPlay]);
 
-  const handleClickPauseButton = () => {
+  const handleClickPauseButton = useCallback(() => {
     setIsPlay(true);
-  };
+  },[setIsPlay]);
 
   if(!film) {
     return <NotFoundScreen/>;

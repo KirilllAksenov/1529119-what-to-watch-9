@@ -2,14 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { Comment } from '../../types/comment';
 import { Film} from '../../types/film';
-import { State, Unknown} from '../../types/state';
+import { State} from '../../types/state';
+import { fetchFilmAction } from '../api-actions';
 
 export type AppData = {
   film: {
     data: Film;
     isLoaded: boolean;
+    isError: boolean;
     similarFilms: Film[];
-    isFound: boolean | Unknown;
     comments: {
       data: Comment[];
       isLoaded: boolean;
@@ -26,15 +27,18 @@ export type AppData = {
   }
   initialFilms: Film[];
   promoFilm?: Film;
-  error: string;
+  error?: {
+    code: number | string;
+    message: string;
+  }
 };
 
 const initialState: AppData = {
   film: {
     data: {} as Film,
     isLoaded: false,
+    isError: false,
     similarFilms: [],
-    isFound: 'UNKNOWN',
     comments: {
       data: [],
       isLoaded: false,
@@ -51,12 +55,30 @@ const initialState: AppData = {
   },
   initialFilms: [],
   promoFilm: undefined,
-  error: '',
+  error: undefined,
 };
 
 export const appData = createSlice({
   name: NameSpace.data,
   initialState,
+  extraReducers: (builder) => {
+    builder.addCase(fetchFilmAction.pending, (state, action) => {
+      state.film.isLoaded = true;
+      state.film.isError = false;
+    });
+    builder.addCase(fetchFilmAction.fulfilled, (state, action) => {
+      state.film.isLoaded = false;
+      state.film.data = action.payload;
+    });
+    builder.addCase(fetchFilmAction.rejected, (state, action) => {
+      state.film.isLoaded = false;
+      state.film.isError = true;
+      state.error = {
+        code: '',
+        message: '',
+      };
+    });
+  },
   reducers: {
     loadFilms: (state, action) => {
       state.initialFilms = action.payload.data;
@@ -64,7 +86,7 @@ export const appData = createSlice({
       state.films.isLoaded = true;
     },
     loadFavoriteFilms: (state, action) => {
-      state.favoriteFilms.data = action.payload.data;
+      state.favoriteFilms.data = action.payload;
       state.favoriteFilms.isLoaded = true;
     },
     loadFilm: (state, action) => {

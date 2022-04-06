@@ -22,23 +22,15 @@ export const fetchFilmsAction = createAsyncThunk(
 );
 
 export const fetchFilmAction = createAsyncThunk(
-  'loadFilm',
+  '/loadFilm',
   async (filmId: number) => {
-    try {
-      const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
-      store.dispatch(loadFilm({data, isLoaded: true}));
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === HTTP_CODE.NOT_FOUND) {
-          store.dispatch(loadFilm({isLoaded: false, errorLoad: true}));
-        }
-      }
-    }
+    const response = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    return response.data;
   },
 );
 
 export const fetchSimilarFilmsAction = createAsyncThunk(
-  'loadSimilarFilms',
+  '/loadSimilarFilms',
   async (filmId: number) => {
     const {data} = await api.get<Film[]>(`${APIRoute.Films}/${filmId}${APIRoute.SimilarFilm}`);
     store.dispatch(loadSimilarFilms(data));
@@ -46,7 +38,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
 );
 
 export const fetchPromoFilmAction = createAsyncThunk(
-  'loadPromoFilm',
+  '/loadPromoFilm',
   async () => {
     const {data} = await api.get<Film>(APIRoute.PromoFilm);
     store.dispatch(loadPromoFilm(data));
@@ -54,7 +46,7 @@ export const fetchPromoFilmAction = createAsyncThunk(
 );
 
 export const fetchFavoriteFilmsAction = createAsyncThunk(
-  'loadFavoriteFilms',
+  '/loadFavoriteFilms',
   async () => {
     const {data} = await api.get<Film[]>(APIRoute.Favorite);
     store.dispatch(loadFavoriteFilms({data}));
@@ -62,7 +54,7 @@ export const fetchFavoriteFilmsAction = createAsyncThunk(
 );
 
 export const fetchCommentAction = createAsyncThunk(
-  'loadComments',
+  '/loadComments',
   async (filmId: number) => {
     const {data} = await api.get<Comment>(`${APIRoute.Comments}/${filmId}`);
     store.dispatch(loadComments(data));
@@ -125,6 +117,6 @@ export const changeStatusToView = createAsyncThunk(
   '/changeStatus',
   async ({filmId: id, status: isFavorite}: FilmStatus) => {
     const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
-    store.dispatch(loadFilm({data, isLoaded: true, isFound: true}));
+    store.dispatch(loadFilm({data, isLoaded: true}));
   },
 );
