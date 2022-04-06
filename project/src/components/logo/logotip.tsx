@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Logotip() {
@@ -13,4 +12,4 @@ function Logotip() {
   );
 }
 
-export default React.memo(Logotip);
+export default Logotip;

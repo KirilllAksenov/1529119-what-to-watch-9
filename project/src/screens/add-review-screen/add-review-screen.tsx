@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import FormReview from '../../components/form-review/form-review';
 import Login from '../../components/login/login';
-import Logotip from '../../components/logotip/logotip';
+import Logotip from '../../components/logo/logotip';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilmAction } from '../../store/api-actions';
 import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';

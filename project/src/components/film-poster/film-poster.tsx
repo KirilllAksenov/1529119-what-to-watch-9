@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppSelector } from '../../hooks';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import { getPromoFilm } from '../../store/app-data/app-data';
-import Controls from '../controls/controls';
+import FilmButtonsControl from '../film-card-buttons/film-card-buttons';
 
 function FilmPoster(): JSX.Element {
   const promoFilm = useAppSelector(getPromoFilm);
@@ -23,7 +23,7 @@ function FilmPoster(): JSX.Element {
           <span className="film-card__genre">{promoFilm.genre}</span>
           <span className="film-card__year">{promoFilm.released}</span>
         </p>
-        <Controls />
+        <FilmButtonsControl film={promoFilm} />
       </div>
     </div>
   );

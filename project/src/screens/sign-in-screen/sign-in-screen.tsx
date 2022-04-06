@@ -1,7 +1,7 @@
 import {useRef, FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
-import Logotip from '../../components/logotip/logotip';
+import Logotip from '../../components/logo/logotip';
 import {useAppDispatch} from '../../hooks/index';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/server';

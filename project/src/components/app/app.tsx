@@ -9,10 +9,10 @@ import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import LoaderScreen from '../../screens/loader-screen/loader-screen';
-import browserHistory  from '../../browser-history';
-import HistoryRouter from '../../components/history-route/history-router';
 import {useAppSelector} from '../../hooks';
 import {getLoadedFilmsStatus } from '../../store/app-data/app-data';
+import HistoryRouter from '../history-route/history-router';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);

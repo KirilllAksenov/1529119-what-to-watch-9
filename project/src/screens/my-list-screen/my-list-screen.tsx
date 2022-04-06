@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import FilmsList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
-import Logotip from '../../components/logotip/logotip';
+import Logotip from '../../components/logo/logotip';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteFilms } from '../../store/app-data/app-data';

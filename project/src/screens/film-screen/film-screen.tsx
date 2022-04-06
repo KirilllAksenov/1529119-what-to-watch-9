@@ -5,40 +5,33 @@ import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Tabs from '../../components/tabs/tabs';
 import LoaderScreen from '../loader-screen/loader-screen';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
-import Logotip from '../../components/logotip/logotip';
-import Controls from '../../components/controls/controls';
+import Logotip from '../../components/logo/logotip';
+import FilmButtonsControl from '../../components/film-card-buttons/film-card-buttons';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSimilarFilmsAction, fetchFilmAction} from '../../store/api-actions';
-import { getComments, getFilm, getFoundedFilmStatus, getLoadedFilmsStatus, getSimilarFilms } from '../../store/app-data/app-data';
+import { getComments, getFilm, getLoadedFilmsStatus, getSimilarFilms } from '../../store/app-data/app-data';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function FilmScreen(): JSX.Element{
   const params = useParams<string>();
-
   const filmId = Number(params.id);
-
   const dispatch = useAppDispatch();
-
-  const film = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilarFilms);
-  const comments = useAppSelector(getComments);
-  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
-  const isFilmFound = useAppSelector(getFoundedFilmStatus);
 
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
     dispatch(fetchSimilarFilmsAction(filmId));
   },[dispatch, filmId]);
 
+  const film = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const comments = useAppSelector(getComments);
+  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
+
   if(!film) {
-    return <div>Not Found...</div>;
+    return <NotFoundScreen/>;
   }
 
   const {backgroundImage, posterImage, name, released, genre} = film;
-
-  if (isFilmFound !== 'UNKNOWN' && !isFilmFound) {
-    return <NotFoundScreen />;
-  }
 
   if (!isFilmLoaded) {
     return <LoaderScreen />;
@@ -63,7 +56,7 @@ function FilmScreen(): JSX.Element{
                 <span className="film-card__genre">{genre}</span>
                 <span className="film-card__year">{released}</span>
               </p>
-              <Controls />
+              <FilmButtonsControl film={film} />
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 
-type FilmCardProps = {
+type Props = {
   film: Film,
   isActive: boolean,
   onHover: (id: number | null) => void,
@@ -11,9 +11,8 @@ type FilmCardProps = {
 
 let timer: NodeJS.Timeout | null = null;
 
-function FilmCard({film, isActive, onHover}: FilmCardProps): JSX.Element {
+function FilmCard({film, isActive, onHover}: Props): JSX.Element {
   const [isPlay, setIsPlay] = useState(false);
-
   const handleMouseEnter = () => {
     timer = setTimeout(() => {
       onHover(film.id);

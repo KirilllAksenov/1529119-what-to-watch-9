@@ -51,3 +51,46 @@ export enum NameSpace {
   user = 'USER',
   app ='APP',
 }
+
+export const playerButtonsControl = {
+  Play: {
+    width: 19,
+    height: 19,
+    xlinkHref: '#play-s',
+    description: 'Play',
+    className: 'player__play',
+  },
+
+  Pause: {
+    width: 14,
+    height: 21,
+    xlinkHref: '#pause',
+    description: 'Pause',
+    className: 'player__play',
+  },
+
+  FullScreen: {
+    width: 27,
+    height: 27,
+    xlinkHref: '#full-screen',
+    description: 'Full screen',
+    className: 'player__full-screen',
+  },
+};
+
+export const filmCardButtonsControl = {
+  Play: {
+    width: 19,
+    height: 19,
+    xlinkHref: '#play-s',
+    description: 'Play',
+    className: 'btn btn--play film-card__button',
+  },
+
+  MyList: {
+    width: 19,
+    height: 20,
+    description: 'My list',
+    className: 'btn btn--list film-card__button',
+  },
+};
