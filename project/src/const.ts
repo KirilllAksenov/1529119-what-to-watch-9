@@ -8,7 +8,9 @@ export const REQUEST_TIMEOUT = 5000;
 export const TIMEOUT_SHOW_ERROR = 3000;
 export const DEFAULT_RATING = 0;
 export const DEFAULT_COMMENT = '';
-
+export const DEFAULT_ERROR = '';
+export const DEFAULT_MUTE = true;
+export const WAIT_TIME_MS = 1000;
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',

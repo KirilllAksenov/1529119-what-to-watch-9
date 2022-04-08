@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import FormReview from '../../components/form-review/form-review';
 import Login from '../../components/login/login';
-import Logotip from '../../components/logo/logotip';
+import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilmAction } from '../../store/api-actions';
 import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';
@@ -38,7 +38,7 @@ function AddReviewScreen() {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
-          <Logotip/>
+          <Logo/>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">

@@ -1,19 +1,20 @@
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import { getFilm } from '../../store/app-data/app-data';
+import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import VideoPlayer from '../../components/video-player/video-player';
 import PlayerButtonPlay from '../../components/player-buttons-control/player-button-play';
 import PlayerButtonFullScreen from '../../components/player-buttons-control/player-button-full-screen';
 import PlayerButtonPause from '../../components/player-buttons-control/player-button-pause';
 import { useCallback, useState } from 'react';
+import LoaderScreen from '../loader-screen/loader-screen';
 
 function PlayerScreen(): JSX.Element{
   const [isPlay, setIsPlay] = useState(true);
   const film = useAppSelector(getFilm);
   const navigate = useNavigate();
-
+  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
   const handleClickExitButton = useCallback(() => {
     navigate(-1);
   },[navigate]);
@@ -28,6 +29,10 @@ function PlayerScreen(): JSX.Element{
 
   if(!film) {
     return <NotFoundScreen/>;
+  }
+
+  if (!isFilmLoaded) {
+    return <LoaderScreen />;
   }
 
   const {videoLink, previewVideoLink, runTime} = film;

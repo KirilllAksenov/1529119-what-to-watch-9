@@ -5,10 +5,10 @@ import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Tabs from '../../components/tabs/tabs';
 import LoaderScreen from '../loader-screen/loader-screen';
-import Logotip from '../../components/logo/logotip';
+import Logo from '../../components/logo/logo';
 import FilmButtonsControl from '../../components/film-card-buttons/film-card-buttons';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchSimilarFilmsAction, fetchFilmAction, fetchCommentAction} from '../../store/api-actions';
+import { fetchSimilarFilmsAction, fetchFilmAction} from '../../store/api-actions';
 import { getComments, getFilm, getLoadedFilmsStatus, getSimilarFilms } from '../../store/app-data/app-data';
 import { AuthorizationStatus, MAX_SIMILAR_FILMS } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -21,7 +21,6 @@ function FilmScreen(): JSX.Element{
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
     dispatch(fetchSimilarFilmsAction(filmId));
-    dispatch(fetchCommentAction(filmId));
   },[dispatch, filmId]);
 
   const film = useAppSelector(getFilm);
@@ -29,10 +28,6 @@ function FilmScreen(): JSX.Element{
   const comments = useAppSelector(getComments);
   const user = useAppSelector(({USER}) => USER);
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
-
-  /* if(!film) {
-    return !error ? <div>Loading...</div> : <div>Error</div>;
-  } */
 
   if(!film) {
     return <NotFoundScreen/>;
@@ -53,7 +48,7 @@ function FilmScreen(): JSX.Element{
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
-            <Logotip/>
+            <Logo/>
             <Login/>
           </header>
           <div className="film-card__wrap">

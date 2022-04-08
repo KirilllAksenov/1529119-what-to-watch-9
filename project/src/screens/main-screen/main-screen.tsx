@@ -4,19 +4,18 @@ import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getInitialFilms, getPromoFilm} from '../../store/app-data/app-data';
-import { useEffect } from 'react';
 import { filterFilmsByGenre, getFilteredFilmsByGenre, getShowedFilmsCount,  getGenres } from '../../store/app-process/app-process';
-import Logotip from '../../components/logo/logotip';
+import Logo from '../../components/logo/logo';
 import Login from '../../components/login/login';
 import FilmDesctop from '../../components/film-desctop/film-desctop';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function MainScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const initialFilms = useAppSelector(getInitialFilms);
 
-  useEffect(() => {
-    dispatch(filterFilmsByGenre(initialFilms));
-  }, [dispatch, initialFilms]);
+  dispatch(filterFilmsByGenre(initialFilms));
+
 
   const filteredFilmsByGenre = useAppSelector(getFilteredFilmsByGenre);
   const showedFilmsCount = useAppSelector(getShowedFilmsCount);
@@ -25,8 +24,10 @@ function MainScreen(): JSX.Element {
   const promoFilm = useAppSelector(getPromoFilm);
 
   if (!promoFilm) {
-    return <div>Loading...</div>;
+    return <NotFoundScreen/>;
   }
+  //! удалил isLoading
+
 
   const {backgroundImage, name, posterImage } = promoFilm;
   return (
@@ -37,7 +38,7 @@ function MainScreen(): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
-          <Logotip/>
+          <Logo/>
           <Login/>
         </header>
         <div className="film-card__wrap">

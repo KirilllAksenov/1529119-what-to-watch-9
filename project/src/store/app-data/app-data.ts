@@ -3,9 +3,8 @@ import { NameSpace } from '../../const';
 import { Comment } from '../../types/comment';
 import { Film} from '../../types/film';
 import { State} from '../../types/state';
-import { fetchFilmAction } from '../api-actions';
 
-export type AppData = {
+type AppData = {
   film: {
     data: Film;
     isLoaded: boolean;
@@ -27,10 +26,7 @@ export type AppData = {
   }
   initialFilms: Film[];
   promoFilm?: Film;
-  error?: {
-    code: number | string;
-    message: string;
-  }
+  error?: string;
 };
 
 const initialState: AppData = {
@@ -61,7 +57,7 @@ const initialState: AppData = {
 export const appData = createSlice({
   name: NameSpace.data,
   initialState,
-  extraReducers: (builder) => {
+  /*   extraReducers: (builder) => {
     builder.addCase(fetchFilmAction.pending, (state, action) => {
       state.film.isLoaded = true;
       state.film.isError = false;
@@ -78,7 +74,7 @@ export const appData = createSlice({
         message: '',
       };
     });
-  },
+  }, */
   reducers: {
     loadFilms: (state, action) => {
       state.initialFilms = action.payload.data;
@@ -119,5 +115,6 @@ export const getFavoriteFilmsStatus = (state: State): boolean => state[NameSpace
 export const getLoadedFilmsStatus = (state: State): boolean => state[NameSpace.data].films.isLoaded;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].film.comments.data;
 export const getLoadedCommentsStatus = (state: State): boolean => state[NameSpace.data].film.comments.isLoaded;
+export const getFilmLoadingError = (state: State): string | undefined => state[NameSpace.data].error;
 
 export const {loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, loadComments, setError, loadFavoriteFilms} = appData.actions;

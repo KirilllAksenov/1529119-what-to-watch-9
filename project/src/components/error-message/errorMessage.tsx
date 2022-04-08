@@ -1,12 +1,15 @@
-//import {useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
+import {getFilmLoadingError} from '../../store/app-data/app-data';
 
 function ErrorMessage(): JSX.Element | null {
-  //const {error} = useAppSelector((state) => state.SERVER.error);
+  const error = useAppSelector(getFilmLoadingError);
 
-  /*   if (error) {
+  if (error) {
     return (
       <div
         style={{
+          width: '100%',
+          height: '80px',
           position: 'fixed',
           top: '30px',
           right: '30px',
@@ -19,7 +22,7 @@ function ErrorMessage(): JSX.Element | null {
         {error}
       </div>
     );
-  } */
+  }
 
   return null;
 }

@@ -3,8 +3,6 @@ export type AuthData = {
   password: string;
 };
 
-export type ErrorType = unknown;
-
 export type UserData = {
   avatarUrl: string;
   email: string;
