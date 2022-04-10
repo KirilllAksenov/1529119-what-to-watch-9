@@ -1,22 +1,21 @@
-import {useAppSelector} from '../../hooks';
-import {getFilmLoadingError} from '../../store/app-data/app-data';
+import { NameSpace } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 function ErrorMessage(): JSX.Element | null {
-  const error = useAppSelector(getFilmLoadingError);
+  const error = useAppSelector((state) => state[NameSpace.data].error);
 
   if (error) {
     return (
       <div
         style={{
-          width: '100%',
-          height: '80px',
           position: 'fixed',
-          top: '30px',
+          top: '150px',
           right: '30px',
           padding: '10px',
           backgroundColor: '#d96666',
           color: 'white',
           borderRadius: '5px',
+          zIndex: 100,
         }}
       >
         {error}

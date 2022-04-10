@@ -10,6 +10,7 @@ import {Film, FilmStatus} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
 import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './app-data/app-data';
 import { getGenres } from './app-process/app-process';
+import {errorHandle} from '../api/error-handle';
 
 
 export const fetchFilmsAction = createAsyncThunk(
@@ -84,6 +85,7 @@ export const checkAuthAction = createAsyncThunk(
       if (axios.isAxiosError(error)) {
         if (error.response?.status === HttpCode.UNAUTHORIZED) {
           store.dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
+          errorHandle(error);
         }
       }
     }
@@ -113,7 +115,7 @@ export const clearErrorAction = createAsyncThunk(
   '/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(setError('')),
+      () => store.dispatch(setError(undefined)),
       TIMEOUT_SHOW_ERROR,
     );
   },
@@ -134,3 +136,4 @@ export const changePromoFilmFavoriteStatus = createAsyncThunk(
     store.dispatch(loadPromoFilm(data));
   },
 );
+
