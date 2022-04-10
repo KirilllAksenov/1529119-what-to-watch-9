@@ -56,7 +56,7 @@ function AddReviewScreen() {
         </div>
       </div>
       <div className="add-review">
-        <FormReview/>
+        <FormReview />
       </div>
     </section>
   );

@@ -6,8 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addComment } from '../../store/api-actions';
 import { CommentData } from '../../types/comment';
 import { getIsDisabledForm } from '../../store/app-process/app-process';
-import ErrorMessage from '../error-message/error-message';
-
 
 const MAX_SCORE = 10;
 
@@ -52,10 +50,7 @@ function FormReview(): JSX.Element {
     evt.preventDefault();
     if (comment) {
       onSubmit({comment: comment, rating: rating, filmId: filmId});
-      navigate(`films/${filmId}`);
-    }
-    else {
-      <ErrorMessage/>;
+      navigate(`/films/${filmId}`);
     }
   };
 

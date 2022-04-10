@@ -7,7 +7,12 @@ import Tabs from '../../components/tabs/tabs';
 import LoaderScreen from '../loader-screen/loader-screen';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {fetchSimilarFilmsAction, fetchFilmAction, changeFilmFavoriteStatus} from '../../store/api-actions';
+import {
+  fetchSimilarFilmsAction,
+  fetchFilmAction,
+  changeFilmFavoriteStatus,
+  fetchCommentAction
+} from '../../store/api-actions';
 import { getComments, getFilm, getLoadedFilmsStatus, getSimilarFilms } from '../../store/app-data/app-data';
 import {AppRoute, AuthorizationStatus, MAX_SIMILAR_FILMS} from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -22,6 +27,7 @@ function FilmScreen(): JSX.Element{
 
   useEffect(() => {
     dispatch(fetchFilmAction(filmId));
+    dispatch(fetchCommentAction(filmId));
     dispatch(fetchSimilarFilmsAction(filmId));
   },[dispatch, filmId]);
 
