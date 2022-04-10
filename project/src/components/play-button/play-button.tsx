@@ -1,19 +1,22 @@
 import {SyntheticEvent, useCallback} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from '../../hooks';
-import {getFilm} from '../../store/app-data/app-data';
+import {Film} from '../../types/film';
+import {playFilmVideoAction} from '../../store/api-actions';
+import {useAppDispatch} from '../../hooks';
 
-export function PlayButton() {
-  const navigate = useNavigate();
-  const film = useAppSelector(getFilm);
+type Props = {
+  film?: Film;
+};
 
+
+export function PlayButton({ film }: Props) {
+  const dispatch = useAppDispatch();
 
   const handleClickPlayButton = useCallback((evt: SyntheticEvent) => {
     evt.preventDefault();
     if (film) {
-      navigate(`/player/${film.id}`);
+      dispatch(playFilmVideoAction(film.id));
     }
-  },[navigate, film]);
+  },[film, dispatch]);
 
   if(!film) {
     return <div>Loading</div>;

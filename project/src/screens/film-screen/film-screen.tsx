@@ -79,7 +79,7 @@ function FilmScreen(): JSX.Element{
                 <span className="film-card__year">{released}</span>
               </p>
               <div className="film-card__buttons">
-                <PlayButton />
+                <PlayButton film={film} />
                 <MyList onClick={handleMyListButtonClick} film={film} />
                 {user.authorizationStatus === AuthorizationStatus.Auth && <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
               </div>

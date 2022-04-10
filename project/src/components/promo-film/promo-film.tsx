@@ -53,7 +53,7 @@ function PromoFilm(): JSX.Element {
               <span className="film-card__year">{promoFilm.released}</span>
             </p>
             <div className="film-card__buttons">
-              <PlayButton />
+              <PlayButton film={promoFilm} />
               <MyList onClick={handleMyListButtonClick} film={promoFilm} />
             </div>
           </div>

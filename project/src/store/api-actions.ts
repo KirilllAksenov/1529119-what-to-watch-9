@@ -33,6 +33,19 @@ export const fetchFilmAction = createAsyncThunk(
   },
 );
 
+export const playFilmVideoAction = createAsyncThunk(
+  '/playFilmVideoAction',
+  async (filmId: number) => {
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    store.dispatch(loadFilm({
+      data,
+      isLoaded: true,
+    }));
+    store.dispatch(redirectToRoute(`/player/${filmId}`));
+  },
+);
+
+
 export const fetchSimilarFilmsAction = createAsyncThunk(
   '/loadSimilarFilms',
   async (filmId: number) => {
