@@ -8,9 +8,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const TIMEOUT_SHOW_ERROR = 3000;
 export const DEFAULT_RATING = 0;
 export const DEFAULT_COMMENT = '';
-export const DEFAULT_ERROR = '';
-export const DEFAULT_MUTE = true;
-export const WAIT_TIME_MS = 1000;
+
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
@@ -77,22 +75,5 @@ export const playerButtonsControl = {
     xlinkHref: '#full-screen',
     description: 'Full screen',
     className: 'player__full-screen',
-  },
-};
-
-export const filmCardButtonsControl = {
-  Play: {
-    width: 19,
-    height: 19,
-    xlinkHref: '#play-s',
-    description: 'Play',
-    className: 'btn btn--play film-card__button',
-  },
-
-  MyList: {
-    width: 19,
-    height: 20,
-    description: 'My list',
-    className: 'btn btn--list film-card__button',
   },
 };

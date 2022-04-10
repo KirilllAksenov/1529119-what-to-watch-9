@@ -517,7 +517,8 @@ main {
 
 .catalog__genres-item {
   margin-right: 20px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  cursor: pointer; }
   .catalog__genres-item--active .catalog__genres-link {
     font-weight: bold; }
     .catalog__genres-item--active .catalog__genres-link::after {
@@ -532,7 +533,8 @@ main {
   position: relative;
   padding-bottom: 15px;
   -webkit-transition: font-weight;
-  transition: font-weight; }
+  transition: font-weight;
+  cursor: pointer; }
   .catalog__genres-link::after {
     content: '';
     position: absolute;

@@ -15,7 +15,7 @@ function SingInScreen(): JSX.Element {
   const hadleBlurEmail = (name: string) => {
     setIsValidEmail(!!name);
   };
-  const hadleBlurPassword = (name: string) => {
+  const handlePasswordFocus = (name: string) => {
     setIsValidPassword(!!name);
   };
   const dispatch = useAppDispatch();
@@ -68,7 +68,7 @@ function SingInScreen(): JSX.Element {
               {!isValidPassword && <span style={{fontSize: '30px'}}> Пароль должен содержать <br/> минимум 1 цифру и 1 букву </span> }
               <input
                 className='sign-in__input'
-                onFocus={(event) => hadleBlurPassword(event.target.value)}
+                onFocus={(event) => handlePasswordFocus(event.target.value)}
                 ref={passwordRef}
                 type='password'
                 placeholder='Password'

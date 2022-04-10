@@ -9,7 +9,7 @@ function ShowMoreButton(): JSX.Element | null{
   const showedFilmsCount = useAppSelector(getShowedFilmsCount);
 
   if (showedFilmsCount >= filmsCount) {
-    return (null);
+    return null;
   }
 
   return (

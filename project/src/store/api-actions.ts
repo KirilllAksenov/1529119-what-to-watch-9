@@ -75,8 +75,11 @@ export const checkAuthAction = createAsyncThunk(
   '/requireAuthorization',
   async () => {
     try {
-      await api.get(APIRoute.Login);
-      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const {data} = await api.get(APIRoute.Login);
+      store.dispatch(requireAuthorization({
+        authorizationStatus: AuthorizationStatus.Auth,
+        data,
+      }));
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === HTTP_CODE.UNAUTHORIZED) {
@@ -116,10 +119,18 @@ export const clearErrorAction = createAsyncThunk(
   },
 );
 
-export const changeStatusToView = createAsyncThunk(
-  '/changeStatus',
+export const changeFilmFavoriteStatus = createAsyncThunk(
+  '/changeFilmFavoriteStatus',
   async ({filmId: id, status: isFavorite}: FilmStatus) => {
     const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
     store.dispatch(loadFilm({data, isLoaded: true}));
+  },
+);
+
+export const changePromoFilmFavoriteStatus = createAsyncThunk(
+  '/changePromoFilmFavoriteStatus',
+  async ({filmId, status}: FilmStatus) => {
+    const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${filmId}/${status}`);
+    store.dispatch(loadPromoFilm(data));
   },
 );
