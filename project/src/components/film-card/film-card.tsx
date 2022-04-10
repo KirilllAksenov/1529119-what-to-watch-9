@@ -5,17 +5,15 @@ import VideoPlayer from '../video-player/video-player';
 
 type Props = {
   film: Film,
-  onHover: (id: number | null) => void,
 }
 
 let timer: NodeJS.Timeout | null = null;
 
-function FilmCard({film, onHover}: Props): JSX.Element {
+function FilmCard({film}: Props): JSX.Element {
   const [isPlay, setIsPlay] = useState(false);
 
   const handleMouseEnter = () => {
     timer = setTimeout(() => {
-      onHover(film.id);
       setIsPlay(true);
     }, 1000);
   };
@@ -26,7 +24,6 @@ function FilmCard({film, onHover}: Props): JSX.Element {
       timer = null;
     }
     setIsPlay(false);
-    onHover(null);
   };
 
   useEffect(() => () => {

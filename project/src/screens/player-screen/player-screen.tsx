@@ -4,9 +4,9 @@ import { useAppSelector } from '../../hooks';
 import { getFilm, getLoadedFilmsStatus } from '../../store/app-data/app-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import VideoPlayer from '../../components/video-player/video-player';
-import PlayerButtonPlay from '../../components/player-buttons-control/player-button-play';
-import PlayerButtonFullScreen from '../../components/player-buttons-control/player-button-full-screen';
-import PlayerButtonPause from '../../components/player-buttons-control/player-button-pause';
+import PlayerButtonPlay from '../../components/player-button-play/player-button-play';
+import PlayerButtonFullScreen from '../../components/player-button-full-screen/player-button-full-screen';
+import PlayerButtonPause from '../../components/player-button-pause/player-button-pause';
 import { useCallback, useState } from 'react';
 import LoaderScreen from '../loader-screen/loader-screen';
 

@@ -1,5 +1,5 @@
-import { Tab } from '../../../const';
-import { TabName } from '../../../types/tab';
+import { Tab } from '../../const';
+import { TabName } from '../../types/tab';
 import TabItem from './navigation-item';
 
 type Props = {

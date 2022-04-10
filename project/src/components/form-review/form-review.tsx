@@ -1,6 +1,6 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import RatingInput from './rating-stars';
+import RatingInput from '../rating-stars/rating-stars';
 import { DEFAULT_COMMENT, DEFAULT_RATING } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addComment } from '../../store/api-actions';

@@ -18,11 +18,13 @@ function MyListScreen (): JSX.Element{
   if (userAuthorizationStatus !== AuthorizationStatus.Auth) {
     navigate(AppRoute.Login);
   }
-
   useEffect(() => {
     dispatch(fetchFavoriteFilmsAction());
   }, [dispatch]);
+
   const favoriteFilms = useAppSelector(getFavoriteFilms);
+  // eslint-disable-next-line no-console
+  console.log('favoriteFilms :>> ', favoriteFilms);
   return(
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -30,7 +32,6 @@ function MyListScreen (): JSX.Element{
         <h1 className="page-title user-page__title">My list</h1>
         <Login/>
       </header>
-
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <FilmsList films={favoriteFilms} />

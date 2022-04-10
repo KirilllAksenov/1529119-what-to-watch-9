@@ -1,6 +1,6 @@
 import {useAppSelector} from '../../hooks';
 import {getActiveGenre} from '../../store/app-process/app-process';
-import GenreItem from './genre-item';
+import GenreItem from '../genre-item/genre-item';
 
 type Props = {
   genres: string[];
