@@ -23,8 +23,7 @@ function MyListScreen (): JSX.Element{
   }, [dispatch]);
 
   const favoriteFilms = useAppSelector(getFavoriteFilms);
-  // eslint-disable-next-line no-console
-  console.log('favoriteFilms :>> ', favoriteFilms);
+
   return(
     <div className="user-page">
       <header className="page-header user-page__head">

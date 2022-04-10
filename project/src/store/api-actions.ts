@@ -53,7 +53,7 @@ export const fetchFavoriteFilmsAction = createAsyncThunk(
   '/loadFavoriteFilms',
   async () => {
     const {data} = await api.get<Film[]>(APIRoute.Favorite);
-    store.dispatch(loadFavoriteFilms({data}));
+    store.dispatch(loadFavoriteFilms(data));
   },
 );
 

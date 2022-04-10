@@ -7,7 +7,6 @@ type Props = {
 }
 
 function FilmsList({films}: Props): JSX.Element {
-
   return (
     <div className="catalog__films-list">
       {films.map((film) => (
