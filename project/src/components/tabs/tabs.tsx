@@ -4,7 +4,7 @@ import { Comment } from '../../types/comment';
 import { Film } from '../../types/film';
 import { TabName } from '../../types/tab';
 import DetailsTab from '../details-tab/details-tab';
-import NavigationList from '../navigation/navigation-list';
+import NavigationList from '../navigation-list/navigation-list';
 import OverviewTab from '../overview-tab/overview-tab';
 import ReviewsTab from '../reviews-tab/reviews-tab';
 
