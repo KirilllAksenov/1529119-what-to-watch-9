@@ -9,10 +9,8 @@ import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import LoaderScreen from '../../screens/loader-screen/loader-screen';
-import {useAppSelector} from '../../hooks';
 import {getLoadedFilmsStatus } from '../../store/app-data/app-data';
-import HistoryRouter from '../history-route/history-router';
-import browserHistory from '../../browser-history';
+import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
@@ -22,31 +20,25 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen />} />
-        <Route path={AppRoute.Login} element={<SingInScreen />} />
-        <Route
-          path={AppRoute.MyList}
-          element={
-            <PrivateRoute>
-              <MyListScreen />
-            </PrivateRoute>
-          }
-        />
-        <Route path={AppRoute.Film} element={<FilmScreen />} />
-        <Route
-          path={AppRoute.AddReview}
-          element={
-            <PrivateRoute>
-              <AddReviewScreen />
-            </PrivateRoute>
-          }
-        />
-        <Route path={AppRoute.Player} element={<PlayerScreen />} />
-        <Route path='*' element={<NotFoundScreen />} />
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route path={AppRoute.Main} element={<MainScreen />} />
+      <Route path={AppRoute.Login} element={<SingInScreen />} />
+      <Route path={AppRoute.MyList} element={
+        <PrivateRoute>
+          <MyListScreen />
+        </PrivateRoute>
+      }
+      />
+      <Route path={AppRoute.Film} element={<FilmScreen />} />
+      <Route path={AppRoute.AddReview} element={
+        <PrivateRoute>
+          <AddReviewScreen />
+        </PrivateRoute>
+      }
+      />
+      <Route path={AppRoute.Player} element={<PlayerScreen />} />
+      <Route path='*' element={<NotFoundScreen />} />
+    </Routes>
   );
 }
 

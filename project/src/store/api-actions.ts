@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store, api} from '../store';
-import {saveToken, dropToken} from '../API/token';
-import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HTTP_CODE} from '../const';
+import {saveToken, dropToken} from '../api/token';
+import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HttpCode} from '../const';
 import {AuthData, UserData} from '../types/server';
 import {redirectToRoute} from './action';
 import { requireAuthorization } from './user-process/user-process';
@@ -10,6 +10,7 @@ import {Film, FilmStatus} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
 import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './app-data/app-data';
 import { getGenres } from './app-process/app-process';
+import {errorHandle} from '../api/error-handle';
 
 
 export const fetchFilmsAction = createAsyncThunk(
@@ -22,23 +23,31 @@ export const fetchFilmsAction = createAsyncThunk(
 );
 
 export const fetchFilmAction = createAsyncThunk(
-  'loadFilm',
+  '/loadFilm',
   async (filmId: number) => {
-    try {
-      const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
-      store.dispatch(loadFilm({data, isLoaded: true}));
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === HTTP_CODE.NOT_FOUND) {
-          store.dispatch(loadFilm({isLoaded: false, errorLoad: true}));
-        }
-      }
-    }
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    store.dispatch(loadFilm({
+      data,
+      isLoaded: true,
+    }));
   },
 );
 
+export const playFilmVideoAction = createAsyncThunk(
+  '/playFilmVideoAction',
+  async (filmId: number) => {
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    store.dispatch(loadFilm({
+      data,
+      isLoaded: true,
+    }));
+    store.dispatch(redirectToRoute(`/player/${filmId}`));
+  },
+);
+
+
 export const fetchSimilarFilmsAction = createAsyncThunk(
-  'loadSimilarFilms',
+  '/loadSimilarFilms',
   async (filmId: number) => {
     const {data} = await api.get<Film[]>(`${APIRoute.Films}/${filmId}${APIRoute.SimilarFilm}`);
     store.dispatch(loadSimilarFilms(data));
@@ -46,7 +55,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
 );
 
 export const fetchPromoFilmAction = createAsyncThunk(
-  'loadPromoFilm',
+  '/loadPromoFilm',
   async () => {
     const {data} = await api.get<Film>(APIRoute.PromoFilm);
     store.dispatch(loadPromoFilm(data));
@@ -54,15 +63,15 @@ export const fetchPromoFilmAction = createAsyncThunk(
 );
 
 export const fetchFavoriteFilmsAction = createAsyncThunk(
-  'loadFavoriteFilms',
+  '/loadFavoriteFilms',
   async () => {
     const {data} = await api.get<Film[]>(APIRoute.Favorite);
-    store.dispatch(loadFavoriteFilms({data}));
+    store.dispatch(loadFavoriteFilms(data));
   },
 );
 
 export const fetchCommentAction = createAsyncThunk(
-  'loadComments',
+  '/loadComments',
   async (filmId: number) => {
     const {data} = await api.get<Comment>(`${APIRoute.Comments}/${filmId}`);
     store.dispatch(loadComments(data));
@@ -80,12 +89,16 @@ export const checkAuthAction = createAsyncThunk(
   '/requireAuthorization',
   async () => {
     try {
-      await api.get(APIRoute.Login);
-      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const {data} = await api.get(APIRoute.Login);
+      store.dispatch(requireAuthorization({
+        authorizationStatus: AuthorizationStatus.Auth,
+        data,
+      }));
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response?.status === HTTP_CODE.UNAUTHORIZED) {
+        if (error.response?.status === HttpCode.UNAUTHORIZED) {
           store.dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
+          errorHandle(error);
         }
       }
     }
@@ -115,16 +128,25 @@ export const clearErrorAction = createAsyncThunk(
   '/clearError',
   () => {
     setTimeout(
-      () => store.dispatch(setError('')),
+      () => store.dispatch(setError(undefined)),
       TIMEOUT_SHOW_ERROR,
     );
   },
 );
 
-export const changeStatusToView = createAsyncThunk(
-  '/changeStatus',
+export const changeFilmFavoriteStatus = createAsyncThunk(
+  '/changeFilmFavoriteStatus',
   async ({filmId: id, status: isFavorite}: FilmStatus) => {
     const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
-    store.dispatch(loadFilm({data, isLoaded: true, isFound: true}));
+    store.dispatch(loadFilm({data, isLoaded: true}));
   },
 );
+
+export const changePromoFilmFavoriteStatus = createAsyncThunk(
+  '/changePromoFilmFavoriteStatus',
+  async ({filmId, status}: FilmStatus) => {
+    const {data} = await api.post<FilmStatus>(`${APIRoute.Favorite}/${filmId}/${status}`);
+    store.dispatch(loadPromoFilm(data));
+  },
+);
+

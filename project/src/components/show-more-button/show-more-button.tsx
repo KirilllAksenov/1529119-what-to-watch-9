@@ -1,17 +1,15 @@
-import { useAppDispatch } from '../../hooks';
-import { showMoreFilms } from '../../store/app-process/app-process';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFilteredFilmsByGenre, getShowedFilmsCount, showMoreFilms } from '../../store/app-process/app-process';
 
-type Props = {
-  showedFilmsCount: number;
-  filmsCount: number;
-}
-
-function ShowMoreButton({showedFilmsCount, filmsCount}: Props): JSX.Element | null{
+function ShowMoreButton(): JSX.Element | null{
   const dispatch = useAppDispatch();
   const handleClick = () => dispatch(showMoreFilms());
+  const filteredFilmsByGenre = useAppSelector(getFilteredFilmsByGenre);
+  const filmsCount = filteredFilmsByGenre.length;
+  const showedFilmsCount = useAppSelector(getShowedFilmsCount);
 
   if (showedFilmsCount >= filmsCount) {
-    return (null);
+    return null;
   }
 
   return (

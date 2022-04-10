@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Logotip() {
+function Logo() {
   return (
     <div className="logo">
       <Link to="/" className="logo__link">
@@ -12,4 +12,4 @@ function Logotip() {
   );
 }
 
-export default Logotip;
+export default Logo;

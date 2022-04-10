@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { playerButtonsControl } from '../../const';
 import ControlButton from '../control-button/control-button';
 
@@ -9,4 +10,4 @@ function PlayerButtonFullScreen(): JSX.Element  {
   );
 }
 
-export default PlayerButtonFullScreen;
+export default memo(PlayerButtonFullScreen);

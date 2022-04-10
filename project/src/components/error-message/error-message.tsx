@@ -1,25 +1,27 @@
-//import {useAppSelector} from '../../hooks';
+import { NameSpace } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 function ErrorMessage(): JSX.Element | null {
-  //const {error} = useAppSelector((state) => state.SERVER.error);
+  const error = useAppSelector((state) => state[NameSpace.data].error);
 
-  /*   if (error) {
+  if (error) {
     return (
       <div
         style={{
           position: 'fixed',
-          top: '30px',
+          top: '150px',
           right: '30px',
           padding: '10px',
           backgroundColor: '#d96666',
           color: 'white',
           borderRadius: '5px',
+          zIndex: 100,
         }}
       >
         {error}
       </div>
     );
-  } */
+  }
 
   return null;
 }

@@ -13,7 +13,7 @@ function ControlButton({width, height, xlinkHref, description, className, onClic
   return (
     <button onClick={onClick} type="button" className={className}>
       <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
-        <use xlinkHref={xlinkHref}></use>
+        <use xlinkHref={xlinkHref}/>
       </svg>
       <span>{description}</span>
     </button>

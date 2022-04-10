@@ -1,6 +1,5 @@
 export const DEFAULT_ACTIVE_GENRE = 'All genres';
 export const MAX_GENRES = 9;
-export const INITIAL_FILMS_COUNT = 8;
 export const FILMS_PER_PAGE = 8;
 export const MAX_SIMILAR_FILMS = 4;
 export const BACKEND_URL = 'https://9.react.pages.academy/wtw';
@@ -34,7 +33,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum HTTP_CODE {
+export enum HttpCode {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
@@ -75,22 +74,5 @@ export const playerButtonsControl = {
     xlinkHref: '#full-screen',
     description: 'Full screen',
     className: 'player__full-screen',
-  },
-};
-
-export const filmCardButtonsControl = {
-  Play: {
-    width: 19,
-    height: 19,
-    xlinkHref: '#play-s',
-    description: 'Play',
-    className: 'btn btn--play film-card__button',
-  },
-
-  MyList: {
-    width: 19,
-    height: 20,
-    description: 'My list',
-    className: 'btn btn--list film-card__button',
   },
 };
