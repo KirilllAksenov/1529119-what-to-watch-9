@@ -1,18 +1,18 @@
-import { useState, memo } from 'react';
+import {useState, memo, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { Film } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 
 type Props = {
   film: Film,
-  isActive: boolean,
   onHover: (id: number | null) => void,
 }
 
 let timer: NodeJS.Timeout | null = null;
 
-function FilmCard({film, isActive, onHover}: Props): JSX.Element {
+function FilmCard({film, onHover}: Props): JSX.Element {
   const [isPlay, setIsPlay] = useState(false);
+
   const handleMouseEnter = () => {
     timer = setTimeout(() => {
       onHover(film.id);
@@ -29,6 +29,12 @@ function FilmCard({film, isActive, onHover}: Props): JSX.Element {
     onHover(null);
   };
 
+  useEffect(() => () => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <article
       className="small-film-card catalog__films-card"
@@ -41,7 +47,7 @@ function FilmCard({film, isActive, onHover}: Props): JSX.Element {
           : <img src={film.previewImage} alt={film.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${film.id}`}className="small-film-card__link">{film.name}</Link>
+        <Link to={`/films/${film.id}`} className="small-film-card__link">{film.name}</Link>
       </h3>
     </article>
   );

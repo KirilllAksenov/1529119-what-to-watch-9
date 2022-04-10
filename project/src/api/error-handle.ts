@@ -1,11 +1,10 @@
 import request from 'axios';
 import {store} from '../store';
 import {clearErrorAction} from '../store/api-actions';
-import {ErrorType} from '../types/error';
-import {HTTP_CODE} from '../const';
+import {HttpCode} from '../const';
 import { setError } from '../store/app-data/app-data';
 
-export const errorHandle = (error: ErrorType): void => {
+export const errorHandle = (error: unknown): void => {
   if (!request.isAxiosError(error)) {
     throw error;
   }
@@ -19,13 +18,13 @@ export const errorHandle = (error: ErrorType): void => {
 
   if (response) {
     switch (response.status) {
-      case HTTP_CODE.BAD_REQUEST:
+      case HttpCode.BAD_REQUEST:
         handleError(response.data.error);
         break;
-      case HTTP_CODE.UNAUTHORIZED:
+      case HttpCode.UNAUTHORIZED:
         handleError(response.data.error);
         break;
-      case HTTP_CODE.NOT_FOUND:
+      case HttpCode.NOT_FOUND:
         handleError(response.data.error);
         break;
     }

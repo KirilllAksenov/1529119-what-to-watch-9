@@ -5,7 +5,7 @@ import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppSelector } from '../../hooks';
 import { getInitialFilms} from '../../store/app-data/app-data';
 import { getFilteredFilmsByGenre, getShowedFilmsCount,  getGenres } from '../../store/app-process/app-process';
-import PromoFilm from '../../components/film-desctop/promo-film';
+import PromoFilm from '../../components/promo-film/promo-film';
 
 function MainScreen(): JSX.Element {
   const initialFilms = useAppSelector(getInitialFilms);

@@ -89,11 +89,9 @@ export const appData = createSlice({
 
 export const getInitialFilms = (state: State): Film[] | [] => state[NameSpace.data].initialFilms;
 export const getFilm = (state: State): Film | undefined => state[NameSpace.data].film.data;
-export const getFilms = (state: State): Film[] | [] => state[NameSpace.data].films.data;
 export const getPromoFilm = (state: State): Film | undefined => state[NameSpace.data].promoFilm;
 export const getSimilarFilms = (state: State): Film[]  => state[NameSpace.data].film.similarFilms;
 export const getFavoriteFilms = (state: State): Film[]  => state[NameSpace.data].favoriteFilms.data;
-export const getFavoriteFilmsStatus = (state: State): boolean => state[NameSpace.data].favoriteFilms.isLoaded;
 export const getLoadedFilmsStatus = (state: State): boolean => state[NameSpace.data].films.isLoaded;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].film.comments.data;
 export const getLoadedCommentsStatus = (state: State): boolean => state[NameSpace.data].film.comments.isLoaded;

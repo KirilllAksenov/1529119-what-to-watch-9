@@ -7,7 +7,7 @@ type Props = {
 }
 
 function FilmsList({films}: Props): JSX.Element {
-  const [activeFilmId, setActiveFilmId] = useState<number | null>(null);
+  const [, setActiveFilmId] = useState<number | null>(null);
 
   return (
     <div className="catalog__films-list">
@@ -15,7 +15,6 @@ function FilmsList({films}: Props): JSX.Element {
         <FilmCard
           key={film.id}
           film={film}
-          isActive={film.id === activeFilmId}
           onHover={setActiveFilmId}
         />
       ))}

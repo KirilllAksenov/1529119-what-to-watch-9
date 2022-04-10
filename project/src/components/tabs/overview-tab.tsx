@@ -49,7 +49,6 @@ function OverviewTab({film}: Props):JSX.Element {
           <span className="film-rating__count">{scoresCount} ratings</span>
         </p>
       </div>
-
       <div className="film-card__text">
         <p>{description}</p>
         <p className="film-card__director"><strong>Director: {director}</strong></p>

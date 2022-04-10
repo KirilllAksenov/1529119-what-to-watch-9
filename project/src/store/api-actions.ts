@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {store, api} from '../store';
-import {saveToken, dropToken} from '../API/token';
-import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HTTP_CODE} from '../const';
+import {saveToken, dropToken} from '../api/token';
+import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HttpCode} from '../const';
 import {AuthData, UserData} from '../types/server';
 import {redirectToRoute} from './action';
 import { requireAuthorization } from './user-process/user-process';
@@ -82,7 +82,7 @@ export const checkAuthAction = createAsyncThunk(
       }));
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        if (error.response?.status === HTTP_CODE.UNAUTHORIZED) {
+        if (error.response?.status === HttpCode.UNAUTHORIZED) {
           store.dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
         }
       }

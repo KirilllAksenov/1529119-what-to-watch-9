@@ -39,22 +39,20 @@ function PlayerScreen(): JSX.Element{
 
   return (
     <div className="player">
-      <VideoPlayer src={videoLink} poster={previewVideoLink} isMute={false} isPlay={isPlay}></VideoPlayer>
+      <VideoPlayer src={videoLink} poster={previewVideoLink} isMute={false} isPlay={isPlay}/>
       <button onClick={handleClickExitButton} type="button" className="player__exit">Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="30" max="100"></progress>
+            <progress className='player__progress' value='30' max='100'/>
             <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
           </div>
           <div className="player__time-value">{dayjs.duration(runTime, 'minutes').format(`${runTime > 60 ? 'H[:]m[:]ss' : 'm'}`)}</div>
         </div>
         <div className="player__controls-row">
-
           {isPlay
             ? <PlayerButtonPlay onClick={handleClickPlayButton}/>
             : <PlayerButtonPause onClick={handleClickPauseButton}/>}
-
           <div className="player__name">Transpotting</div>
           <PlayerButtonFullScreen />
         </div>

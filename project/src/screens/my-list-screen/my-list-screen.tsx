@@ -10,12 +10,10 @@ import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 import { getFavoriteFilms } from '../../store/app-data/app-data';
 import { getAuthorizationStatus } from '../../store/user-process/user-process';
 
-
 function MyListScreen (): JSX.Element{
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userAuthorizationStatus = useAppSelector(getAuthorizationStatus);
-
 
   if (userAuthorizationStatus !== AuthorizationStatus.Auth) {
     navigate(AppRoute.Login);
