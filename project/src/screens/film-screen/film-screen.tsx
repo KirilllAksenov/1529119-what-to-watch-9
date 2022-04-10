@@ -24,6 +24,7 @@ function FilmScreen(): JSX.Element{
   },[dispatch, filmId]);
 
   const film = useAppSelector(getFilm);
+
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, MAX_SIMILAR_FILMS);
   const comments = useAppSelector(getComments);
   const user = useAppSelector(({USER}) => USER);

@@ -57,24 +57,6 @@ const initialState: AppData = {
 export const appData = createSlice({
   name: NameSpace.data,
   initialState,
-  /*   extraReducers: (builder) => {
-    builder.addCase(fetchFilmAction.pending, (state, action) => {
-      state.film.isLoaded = true;
-      state.film.isError = false;
-    });
-    builder.addCase(fetchFilmAction.fulfilled, (state, action) => {
-      state.film.isLoaded = false;
-      state.film.data = action.payload;
-    });
-    builder.addCase(fetchFilmAction.rejected, (state, action) => {
-      state.film.isLoaded = false;
-      state.film.isError = true;
-      state.error = {
-        code: '',
-        message: '',
-      };
-    });
-  }, */
   reducers: {
     loadFilms: (state, action) => {
       state.initialFilms = action.payload.data;

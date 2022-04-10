@@ -21,9 +21,6 @@ export const appProcess = createSlice({
   name: NameSpace.app,
   initialState,
   reducers: {
-    filterFilmsByGenre: (state, action) => {
-      state.filteredFilmsByGenre = state.activeGenre === DEFAULT_ACTIVE_GENRE ? action.payload : action.payload.filter((film: Film) => film.genre === state.activeGenre);
-    },
     setGenre: (state, action) => {
       state.showedFilmsCount = FILMS_PER_PAGE;
       state.activeGenre = action.payload;
@@ -46,6 +43,14 @@ export const appProcess = createSlice({
 export const getGenres = (films: Film[]) => [...new Set([DEFAULT_ACTIVE_GENRE, ...Array.from(films, ({genre}) => genre)])].slice(0, MAX_GENRES);
 export const getActiveGenre = (state: State): string => state[NameSpace.app].activeGenre;
 export const getShowedFilmsCount = (state: State): number => state[NameSpace.app].showedFilmsCount;
-export const getFilteredFilmsByGenre = (state: State): Film[] => state[NameSpace.app].filteredFilmsByGenre;
 export const getIsDisabledForm = (state: State): boolean => state[NameSpace.app].isDisabledForm;
-export const {setGenre, resetShowedFilmsCount, showMoreFilms, filterFilmsByGenre} = appProcess.actions;
+export const {setGenre, showMoreFilms} = appProcess.actions;
+
+export const getFilteredFilmsByGenre = (state: State): Film[] => {
+  const {activeGenre} = state[NameSpace.app];
+  const {initialFilms} = state[NameSpace.data];
+  if (activeGenre === DEFAULT_ACTIVE_GENRE) {
+    return initialFilms;
+  }
+  return initialFilms.filter((film) => film.genre === activeGenre);
+};

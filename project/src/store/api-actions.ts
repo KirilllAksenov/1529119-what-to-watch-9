@@ -24,8 +24,11 @@ export const fetchFilmsAction = createAsyncThunk(
 export const fetchFilmAction = createAsyncThunk(
   '/loadFilm',
   async (filmId: number) => {
-    const response = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
-    return response.data;
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    store.dispatch(loadFilm({
+      data,
+      isLoaded: true,
+    }));
   },
 );
 

@@ -2,20 +2,16 @@ import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { getInitialFilms, getPromoFilm} from '../../store/app-data/app-data';
-import { filterFilmsByGenre, getFilteredFilmsByGenre, getShowedFilmsCount,  getGenres } from '../../store/app-process/app-process';
+import { getFilteredFilmsByGenre, getShowedFilmsCount,  getGenres } from '../../store/app-process/app-process';
 import Logo from '../../components/logo/logo';
 import Login from '../../components/login/login';
 import FilmDesctop from '../../components/film-desctop/film-desctop';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function MainScreen(): JSX.Element {
-  const dispatch = useAppDispatch();
   const initialFilms = useAppSelector(getInitialFilms);
-
-  dispatch(filterFilmsByGenre(initialFilms));
-
 
   const filteredFilmsByGenre = useAppSelector(getFilteredFilmsByGenre);
   const showedFilmsCount = useAppSelector(getShowedFilmsCount);
@@ -26,8 +22,6 @@ function MainScreen(): JSX.Element {
   if (!promoFilm) {
     return <NotFoundScreen/>;
   }
-  //! удалил isLoading
-
 
   const {backgroundImage, name, posterImage } = promoFilm;
   return (
