@@ -1,4 +1,4 @@
-import {useRef, FormEvent, useState} from 'react';
+import {useRef, FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
@@ -6,18 +6,11 @@ import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/server';
 import {AppRoute} from '../../const';
+import { addErrorMessage, checkValidateEmail, checkValidatePassword } from '../../utils';
 
 function SingInScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-  const hadleBlurEmail = (name: string) => {
-    setIsValidEmail(!!name);
-  };
-  const handlePasswordFocus = (name: string) => {
-    setIsValidPassword(!!name);
-  };
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -47,15 +40,19 @@ function SingInScreen(): JSX.Element {
         <form action='#' className='sign-in__form' onSubmit={handleSubmit}>
           <div className='sign-in__fields'>
             <div className='sign-in__field'>
-              {!isValidEmail && <span style={{fontSize: '30px'}}> Введите корректный email</span> }
               <input
-                onFocus={(event) => hadleBlurEmail(event.target.value)}
                 className='sign-in__input'
                 ref={loginRef}
                 type='email'
                 placeholder='Email address'
                 name='user-email'
                 id='user-email'
+                onChange={(evt) =>
+                  addErrorMessage(
+                    evt.target,
+                    checkValidateEmail(evt.target.value),
+                  )}
+                required
               />
               <label
                 className='sign-in__label visually-hidden'
@@ -65,16 +62,19 @@ function SingInScreen(): JSX.Element {
               </label>
             </div>
             <div className='sign-in__field'>
-              {!isValidPassword && <span style={{fontSize: '30px'}}> Пароль должен содержать <br/> минимум 1 цифру и 1 букву </span> }
               <input
                 className='sign-in__input'
-                onFocus={(event) => handlePasswordFocus(event.target.value)}
                 ref={passwordRef}
                 type='password'
                 placeholder='Password'
                 name='user-password'
                 id='user-password'
-                pattern='(?=.*\d)(?=.*[a-z]).{1,}'
+                minLength={2}
+                onChange={(evt) =>
+                  addErrorMessage(
+                    evt.target,
+                    checkValidatePassword(evt.target.value),
+                  )}
               />
               <label
                 className='sign-in__label visually-hidden'

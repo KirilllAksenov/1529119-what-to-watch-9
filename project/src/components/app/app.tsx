@@ -8,17 +8,8 @@ import AddReviewScreen from '../../screens/add-review-screen/add-review-screen';
 import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import LoaderScreen from '../../screens/loader-screen/loader-screen';
-import {getLoadedFilmsStatus } from '../../store/app-data/app-data';
-import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
-
-  if (!isFilmLoaded) {
-    return <LoaderScreen />;
-  }
-
   return (
     <Routes>
       <Route path={AppRoute.Main} element={<MainScreen />} />

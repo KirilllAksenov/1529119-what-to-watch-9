@@ -4,7 +4,6 @@ import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import Login from '../../components/login/login';
 import Tabs from '../../components/tabs/tabs';
-import LoaderScreen from '../loader-screen/loader-screen';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -19,6 +18,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import {PlayButton} from '../../components/play-button/play-button';
 import {MyList} from '../../components/my-list/my-list';
 import {redirectToRoute} from '../../store/action';
+import LoaderScreen from '../loader-screen/loader-screen';
 
 function FilmScreen(): JSX.Element{
   const params = useParams<string>();
@@ -33,10 +33,9 @@ function FilmScreen(): JSX.Element{
 
   const film = useAppSelector(getFilm);
   const user = useAppSelector(({USER}) => USER);
-
+  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
   const similarFilms = useAppSelector(getSimilarFilms).slice(0, MAX_SIMILAR_FILMS);
   const comments = useAppSelector(getComments);
-  const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
 
   const handleMyListButtonClick = useCallback((evt: SyntheticEvent) => {
     evt.preventDefault();
@@ -53,11 +52,11 @@ function FilmScreen(): JSX.Element{
     return <NotFoundScreen/>;
   }
 
-  const {backgroundImage, posterImage, name, released, genre} = film;
-
-  if (!isFilmLoaded) {
+  if(!isFilmLoaded) {
     return <LoaderScreen />;
   }
+
+  const {backgroundImage, posterImage, name, released, genre} = film;
 
   return (
     <>

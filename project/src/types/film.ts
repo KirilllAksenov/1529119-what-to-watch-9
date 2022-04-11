@@ -18,7 +18,7 @@ export type Film = {
     isFavorite: boolean,
 };
 
-export type FilmStatus = {
+export type FilmStatus= {
   filmId: number;
   status: Favorite;
 }
