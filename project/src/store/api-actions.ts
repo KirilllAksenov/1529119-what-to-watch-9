@@ -1,15 +1,23 @@
 import axios from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {store, api} from '../store';
-import {saveToken, dropToken} from '../api/token';
-import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR, AppRoute, HttpCode} from '../const';
+import {api, store} from '../store';
+import {dropToken, saveToken} from '../api/token';
+import {APIRoute, AppRoute, AuthorizationStatus, HttpCode, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData, UserData} from '../types/server';
 import {redirectToRoute} from './action';
-import { requireAuthorization } from './user-process/user-process';
+import {requireAuthorization} from './user-process/user-process';
 import {Film, FilmStatus} from '../types/film';
 import {Comment, CommentData} from '../types/comment';
-import {loadComments, loadFilm, loadFilms, loadPromoFilm, loadSimilarFilms, setError, loadFavoriteFilms } from './app-data/app-data';
-import { getGenres } from './app-process/app-process';
+import {
+  loadComments,
+  loadFavoriteFilms,
+  loadFilm,
+  loadFilms,
+  loadPromoFilm,
+  loadSimilarFilms,
+  setError
+} from './app-data/app-data';
+import {getGenres} from './app-process/app-process';
 import {errorHandle} from '../api/error-handle';
 
 
@@ -25,11 +33,15 @@ export const fetchFilmsAction = createAsyncThunk(
 export const fetchFilmAction = createAsyncThunk(
   '/loadFilm',
   async (filmId: number) => {
-    const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
-    store.dispatch(loadFilm({
-      data,
-      isLoaded: true,
-    }));
+    try {
+      const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+      store.dispatch(loadFilm({
+        data,
+        isLoaded: true,
+      }));
+    } catch (error) {
+      store.dispatch(redirectToRoute(AppRoute.NotFound));
+    }
   },
 );
 
@@ -98,8 +110,8 @@ export const checkAuthAction = createAsyncThunk(
       if (axios.isAxiosError(error)) {
         if (error.response?.status === HttpCode.UNAUTHORIZED) {
           store.dispatch(requireAuthorization({authorizationStatus: AuthorizationStatus.NoAuth}));
-          errorHandle(error);
         }
+        errorHandle(error);
       }
     }
   },

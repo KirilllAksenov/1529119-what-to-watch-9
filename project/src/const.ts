@@ -11,7 +11,7 @@ export const DEFAULT_COMMENT = '';
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  Films = '/fils',
+  Films = '/films',
   SimilarFilm = '/similar',
   PromoFilm = '/promo',
   Comments = '/comments',
@@ -25,6 +25,7 @@ export enum AppRoute {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
+  NotFound = '/not-found',
 }
 
 export enum AuthorizationStatus {

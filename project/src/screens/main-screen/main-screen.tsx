@@ -13,6 +13,7 @@ function MainScreen(): JSX.Element {
   const showedFilmsCount = useAppSelector(getShowedFilmsCount);
   const filmsToShow = filteredFilmsByGenre.slice(0, showedFilmsCount);
   const genres = getGenres(initialFilms);
+
   return (
     <>
       <PromoFilm />

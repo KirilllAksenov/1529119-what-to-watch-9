@@ -6,7 +6,6 @@ import {MyList} from '../my-list/my-list';
 import {AppRoute, AuthorizationStatus, NameSpace} from '../../const';
 import {redirectToRoute} from '../../store/action';
 import {getPromoFilm} from '../../store/app-data/app-data';
-import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import Logo from '../logo/logo';
 import Login from '../login/login';
 
@@ -27,14 +26,10 @@ function PromoFilm(): JSX.Element {
     }
   };
 
-  if (!promoFilm) {
-    return <NotFoundScreen/>;
-  }
-
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>
+        {promoFilm && <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>}
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">
@@ -44,17 +39,17 @@ function PromoFilm(): JSX.Element {
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
+            {promoFilm && <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />}
           </div>
           <div className="film-card__desc">
-            <h2 className="film-card__title">{promoFilm.name}</h2>
+            <h2 className="film-card__title">{promoFilm ? promoFilm.name : 'Not Founded'}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{promoFilm.genre}</span>
-              <span className="film-card__year">{promoFilm.released}</span>
+              {promoFilm && <span className="film-card__genre">{promoFilm.genre}</span>}
+              {promoFilm && <span className="film-card__year">{promoFilm.released}</span>}
             </p>
             <div className="film-card__buttons">
-              <PlayButton film={promoFilm} />
-              <MyList onClick={handleMyListButtonClick} film={promoFilm} />
+              {promoFilm && <PlayButton film={promoFilm} />}
+              {promoFilm && <MyList onClick={handleMyListButtonClick} film={promoFilm} />}
             </div>
           </div>
         </div>

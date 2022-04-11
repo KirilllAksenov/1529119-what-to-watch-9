@@ -51,6 +51,7 @@ function FilmScreen(): JSX.Element{
   if(!film) {
     return <NotFoundScreen/>;
   }
+
   if(!isFilmLoaded) {
     return <LoaderScreen />;
   }
