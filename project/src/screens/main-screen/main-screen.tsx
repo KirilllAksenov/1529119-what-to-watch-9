@@ -9,7 +9,6 @@ import PromoFilm from '../../components/promo-film/promo-film';
 
 function MainScreen(): JSX.Element {
   const initialFilms = useAppSelector(getInitialFilms);
-
   const filteredFilmsByGenre = useAppSelector(getFilteredFilmsByGenre);
   const showedFilmsCount = useAppSelector(getShowedFilmsCount);
   const filmsToShow = filteredFilmsByGenre.slice(0, showedFilmsCount);

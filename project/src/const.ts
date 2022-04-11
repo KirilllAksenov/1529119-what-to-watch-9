@@ -11,7 +11,7 @@ export const DEFAULT_COMMENT = '';
 export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
-  Films = '/films',
+  Films = '/fils',
   SimilarFilm = '/similar',
   PromoFilm = '/promo',
   Comments = '/comments',

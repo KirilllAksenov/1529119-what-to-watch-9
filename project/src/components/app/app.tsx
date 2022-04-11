@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import MainScreen from '../../screens/main-screen/main-screen';
 import SingInScreen from '../../screens/sign-in-screen/sign-in-screen';
 import MyListScreen from '../../screens/my-list-screen/my-list-screen';
@@ -9,14 +9,15 @@ import PlayerScreen from '../../screens/player-screen/player-screen';
 import PrivateRoute from '../private-route/private-route';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import LoaderScreen from '../../screens/loader-screen/loader-screen';
-import {getLoadedFilmsStatus } from '../../store/app-data/app-data';
+import  getLoadedFilmsStatus } from '../../store/app-data/app-data';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
   const isFilmLoaded = useAppSelector(getLoadedFilmsStatus);
+  const user = useAppSelector(({USER}) => USER);
 
-  if (!isFilmLoaded) {
-    return <LoaderScreen />;
+  if(!isFilmLoaded || user.authorizationStatus === AuthorizationStatus.Auth) {
+    return <LoaderScreen/>;
   }
 
   return (

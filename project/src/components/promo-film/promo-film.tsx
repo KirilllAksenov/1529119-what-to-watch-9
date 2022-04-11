@@ -1,4 +1,4 @@
-import {SyntheticEvent, useCallback} from 'react';
+import {SyntheticEvent} from 'react';
 import {changePromoFilmFavoriteStatus} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {PlayButton} from '../play-button/play-button';
@@ -16,7 +16,7 @@ function PromoFilm(): JSX.Element {
 
   const user = useAppSelector((state) => state[NameSpace.user]);
 
-  const handleMyListButtonClick = useCallback((evt: SyntheticEvent) => {
+  const handleMyListButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
     if (user.authorizationStatus === AuthorizationStatus.Auth) {
       if (promoFilm) {
@@ -25,7 +25,7 @@ function PromoFilm(): JSX.Element {
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
     }
-  }, [promoFilm, dispatch]);
+  };
 
   if (!promoFilm) {
     return <NotFoundScreen/>;
