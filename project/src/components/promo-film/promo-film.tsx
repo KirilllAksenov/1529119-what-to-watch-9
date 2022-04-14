@@ -9,6 +9,7 @@ import {getPromoFilm} from '../../store/app-data/app-data';
 import Logo from '../logo/logo';
 import Login from '../login/login';
 
+
 function PromoFilm(): JSX.Element {
   const dispatch = useAppDispatch();
   const promoFilm = useAppSelector(getPromoFilm);
@@ -26,6 +27,23 @@ function PromoFilm(): JSX.Element {
     }
   };
 
+  if (!promoFilm) {
+    return (
+      <section className="film-card">
+        <div className="film-card__bg">
+        </div>
+        <h1 className="visually-hidden">WTW</h1>
+        <div style={{height: '300px'}} className="film-card__wrap">
+          <div className="film-card__info">
+            <div className="film-card__desc">
+              <h2 style={{fontSize: '50px', margin: '180px'}}className="film-card__title">Sorry Not Founded Films</h2>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -33,16 +51,18 @@ function PromoFilm(): JSX.Element {
       </div>
       <h1 className="visually-hidden">WTW</h1>
       <header className="page-header film-card__head">
-        <Logo/>
-        <Login/>
+        {promoFilm && <Logo/>}
+        {promoFilm && <Login/>}
       </header>
       <div className="film-card__wrap">
         <div className="film-card__info">
-          <div className="film-card__poster">
-            {promoFilm && <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />}
-          </div>
+          {promoFilm ?
+            <div className="film-card__poster">
+              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
+            </div>
+            :  null}
           <div className="film-card__desc">
-            <h2 className="film-card__title">{promoFilm ? promoFilm.name : 'Not Founded'}</h2>
+            <h2 className="film-card__title">{promoFilm ? promoFilm.name : 'Sorry Not Founded Films'}</h2>
             <p className="film-card__meta">
               {promoFilm && <span className="film-card__genre">{promoFilm.genre}</span>}
               {promoFilm && <span className="film-card__year">{promoFilm.released}</span>}
@@ -55,7 +75,6 @@ function PromoFilm(): JSX.Element {
         </div>
       </div>
     </section>
-
   );
 }
 

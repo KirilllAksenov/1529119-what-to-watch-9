@@ -101,7 +101,7 @@ function FilmScreen(): JSX.Element{
           <h2 className="catalog__title">More like this</h2>
           <FilmList films={similarFilms}/>
         </section>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

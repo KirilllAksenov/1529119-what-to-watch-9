@@ -24,7 +24,7 @@ function MainScreen(): JSX.Element {
           <FilmsList films={filmsToShow}/>
           <ShowMoreButton />
         </section>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

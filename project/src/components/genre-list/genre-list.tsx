@@ -13,7 +13,7 @@ function GenreList({genres}: Props): JSX.Element {
     <GenreItem key={genre} genre={genre} activeGenre={activeGenre} />
   ));
 
-  return <ul className='catalog__genres-list'>{genreList}</ul>;
+  return <ul className='catalog__genres-list'>{genreList && null}</ul>;
 }
 
 export default GenreList;
